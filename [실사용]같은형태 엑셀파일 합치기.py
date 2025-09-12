@@ -4,8 +4,6 @@ import os
 import threading
 import customtkinter as ctk
 from tkinter import filedialog, messagebox
-from PIL import Image, ImageTk
-import io
 
 # CustomTkinter 설정
 ctk.set_appearance_mode("light")  # 라이트 모드
@@ -17,11 +15,13 @@ class ModernExcelMerger:
         self.root.title("엑셀 파일 합치기")
         self.root.geometry("600x700")
         self.root.resizable(False, False)
-        
-        # 색상 팔레트
-        self.colors = {
+        self.colors = self.get_colors()
+        self.setup_ui()
+
+    def get_colors(self):
+        return {
             "primary": "#0064FF",
-            "secondary": "#F8F9FA", 
+            "secondary": "#F8F9FA",
             "success": "#00D4AA",
             "warning": "#FF6B6B",
             "text": "#191F28",
@@ -29,8 +29,6 @@ class ModernExcelMerger:
             "white": "#FFFFFF",
             "border": "#E1E5E9"
         }
-        
-        self.setup_ui()
         
     def setup_ui(self):
         # 메인 컨테이너
@@ -220,26 +218,24 @@ class ModernExcelMerger:
         
     def select_folder(self):
         folder_path = filedialog.askdirectory(title="엑셀 파일이 있는 폴더를 선택하세요")
-        if folder_path:
-            self.folder_path = folder_path
-            self.folder_label.configure(text=f"선택된 폴더: {folder_path}")
-            
-            # 엑셀 파일 확인
-            file_paths = glob.glob(os.path.join(folder_path, "*.xlsx"))
-            if file_paths:
-                self.info_label.configure(
-                    text=f"발견된 엑셀 파일: {len(file_paths)}개\n파일 목록:\n" + 
-                         "\n".join([f"• {os.path.basename(f)}" for f in file_paths[:5]]) +
-                         (f"\n... 및 {len(file_paths)-5}개 더" if len(file_paths) > 5 else "")
-                )
-                self.merge_button.configure(state="normal")
-                self.progress_label.configure(text="✅ 파일을 찾았습니다. 합치기를 진행할 수 있습니다.")
-            else:
-                self.info_label.configure(text="선택한 폴더에 엑셀 파일이 없습니다.")
-                self.merge_button.configure(state="disabled")
-                self.progress_label.configure(text="⚠️ 엑셀 파일을 찾을 수 없습니다.")
-        else:
+        if not folder_path:
             self.progress_label.configure(text="폴더 선택이 취소되었습니다.")
+            return
+        self.folder_path = folder_path
+        self.folder_label.configure(text=f"선택된 폴더: {folder_path}")
+        file_paths = glob.glob(os.path.join(folder_path, "*.xlsx"))
+        if file_paths:
+            file_preview = "\n".join([f"• {os.path.basename(f)}" for f in file_paths[:5]])
+            more_files = f"\n... 및 {len(file_paths)-5}개 더" if len(file_paths) > 5 else ""
+            self.info_label.configure(
+                text=f"발견된 엑셀 파일: {len(file_paths)}개\n파일 목록:\n{file_preview}{more_files}"
+            )
+            self.merge_button.configure(state="normal")
+            self.progress_label.configure(text="✅ 파일을 찾았습니다. 합치기를 진행할 수 있습니다.")
+        else:
+            self.info_label.configure(text="선택한 폴더에 엑셀 파일이 없습니다.")
+            self.merge_button.configure(state="disabled")
+            self.progress_label.configure(text="⚠️ 엑셀 파일을 찾을 수 없습니다.")
     
     def merge_files(self):
         if not hasattr(self, 'folder_path'):
@@ -258,29 +254,29 @@ class ModernExcelMerger:
     def process_files(self):
         try:
             file_paths = glob.glob(os.path.join(self.folder_path, "*.xlsx"))
-            
             if not file_paths:
                 self.root.after(0, lambda: messagebox.showwarning("경고", "선택한 폴더에 엑셀 파일이 없습니다."))
                 return
-            
             all_data_frames = []
             total_files = len(file_paths)
-            
             for i, file in enumerate(file_paths):
-                self.root.after(0, lambda f=file, idx=i+1, total=total_files: 
+                self.root.after(0, lambda idx=i+1, total=total_files:
                     self.progress_label.configure(text=f"파일 처리 중... ({idx}/{total})"))
-                
-                xls = pd.ExcelFile(file)
-                for sheet_name in xls.sheet_names:
-                    df = pd.read_excel(xls, sheet_name=sheet_name)
-                    all_data_frames.append(df)
-            
+                try:
+                    xls = pd.ExcelFile(file)
+                    for sheet_name in xls.sheet_names:
+                        df = pd.read_excel(xls, sheet_name=sheet_name)
+                        all_data_frames.append(df)
+                except Exception as fe:
+                    self.root.after(0, lambda f=file, msg=str(fe):
+                        self.progress_label.configure(text=f"⚠️ {os.path.basename(f)} 처리 오류: {msg}"))
+            if not all_data_frames:
+                self.root.after(0, lambda: self.show_error("병합할 데이터가 없습니다."))
+                return
             merged_df = pd.concat(all_data_frames, ignore_index=True)
             output_path = os.path.join(self.folder_path, "merged_file.xlsx")
             merged_df.to_excel(output_path, index=False)
-            
             self.root.after(0, lambda: self.show_success(output_path, len(all_data_frames)))
-            
         except Exception as e:
             self.root.after(0, lambda: self.show_error(str(e)))
     
