@@ -1,0 +1,148 @@
+2025-09-14 10:38:29,678 - INFO - 전자책 검토자 자동 등록 시스템 시작
+2025-09-14 10:38:34,333 - INFO - 엑셀 파일 읽기 성공: C:/Users/taejin/Downloads/전자책견본처리현황_2025-06-14 ~ 2025-09-14.xls
+2025-09-14 10:38:34,334 - INFO - 총 4개의 행이 발견됨
+2025-09-14 10:38:34,336 - INFO - 유효한 데이터: 4개 행
+2025-09-14 10:38:37,111 - INFO - 웹 드라이버 설정 시작...
+2025-09-14 10:38:37,118 - INFO - Chrome 드라이버 설정 시작...
+2025-09-14 10:38:37,120 - INFO - config.py에서 크롬 브라우저 경로 사용: C:\Program Files\Google\Chrome\Application\chrome.exe
+2025-09-14 10:38:37,123 - INFO - ChromeDriverManager를 사용하여 드라이버 다운로드 중...
+2025-09-14 10:38:37,123 - INFO - ====== WebDriver manager ======
+2025-09-14 10:38:38,238 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-14 10:38:38,681 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-14 10:38:39,117 - INFO - Driver [C:\Users\taejin\.wdm\drivers\chromedriver\win64\140.0.7339.82\chromedriver-win32/chromedriver.exe] found in cache
+2025-09-14 10:38:39,118 - INFO - 크롬 드라이버 다운로드 성공: C:\Users\taejin\.wdm\drivers\chromedriver\win64\140.0.7339.82\chromedriver-win32/chromedriver.exe
+2025-09-14 10:38:40,294 - INFO - 자동화 감지 방지 스크립트 실행 완료
+2025-09-14 10:38:40,294 - INFO - Chrome 드라이버 설정 완료
+2025-09-14 10:38:40,294 - INFO - Google 로그인 시도...
+2025-09-14 10:38:40,299 - INFO - Google Play Books 파트너스 센터로 이동: https://play.google.com/books/publish/u/0/?hl=ko
+2025-09-14 10:38:44,715 - INFO - 현재 URL: https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fplay.google.com%2Fbooks%2Fpublish%2Fredirect&followup=https%3A%2F%2Fplay.google.com%2Fbooks%2Fpublish%2Fredirect&ifkv=AdBytiPTlVpQ0jC-uQCxqcvp61KTeKpSEchIanSniUm3qiUBz8aby9ZG_tvCSjZeG2KVizgEXEcO&passive=1209600&service=printpublisher&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-367164692%3A1757813926038076
+2025-09-14 10:38:44,715 - INFO - ============================================================
+2025-09-14 10:38:44,715 - INFO - 🔐 Google Play Books 파트너스 센터 로그인이 필요합니다.
+2025-09-14 10:38:44,716 - INFO - 📌 브라우저 창에서 다음 단계를 진행해주세요:
+2025-09-14 10:38:44,716 - INFO -    1. Google 계정으로 로그인
+2025-09-14 10:38:44,716 - INFO -    2. 2단계 인증 완료 (필요한 경우)
+2025-09-14 10:38:44,716 - INFO -    3. Google Play Books 파트너스 센터 대시보드가 표시될 때까지 대기
+2025-09-14 10:38:44,716 - INFO - ============================================================
+2025-09-14 10:38:44,722 - INFO - ⏰ 로그인 대기 중... (남은 시간: 300초)
+2025-09-14 10:39:18,875 - INFO - ✅ Google Play Books 파트너스 센터 로그인 완료!
+2025-09-14 10:39:18,880 - INFO - 처리 중 (1/4): 이수정 - [eBook] IT CookBook, 최신 컴퓨터 구조(2판) - sjlee@inhatc.ac.kr
+2025-09-14 10:39:18,891 - INFO - 도서 검색 시작: [eBook] IT CookBook, 최신 컴퓨터 구조(2판)
+2025-09-14 10:39:18,893 - INFO - 네비게이션 메뉴 클릭 시도...
+2025-09-14 10:39:19,177 - INFO - 네비게이션 메뉴 클릭 성공
+2025-09-14 10:39:22,180 - INFO - 출판사 선택 드롭다운 클릭 시도...
+2025-09-14 10:39:22,452 - INFO - 출판사 선택 드롭다운 열기 성공
+2025-09-14 10:39:27,354 - INFO - 한빛아카데미 출판사 선택 성공
+2025-09-14 10:39:29,355 - INFO - 도서 검색 필드에 '[eBook] IT CookBook, 최신 컴퓨터 구조(2판)' 입력 시도...
+2025-09-14 10:39:36,050 - INFO - 도서 검색 입력 완료
+2025-09-14 10:39:36,055 - INFO - 검색 결과 중 첫 번째 도서 클릭 시도...
+2025-09-14 10:39:54,578 - INFO - 첫 번째 도서 클릭 성공
+2025-09-14 10:39:57,586 - INFO - 도서 '[eBook] IT CookBook, 최신 컴퓨터 구조(2판)' 검색 및 선택 완료
+2025-09-14 10:39:57,593 - INFO - 검토자 추가 시작: sjlee@inhatc.ac.kr
+2025-09-14 10:39:57,607 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-14 10:40:12,765 - ERROR - 콘텐츠 검토 아이템을 찾을 수 없습니다
+2025-09-14 10:40:54,689 - INFO - 대체 셀렉터로 클릭 성공: //div[contains(@class, 'review-item')][1]//a
+2025-09-14 10:40:57,692 - INFO - 이메일 입력 필드에 'sjlee@inhatc.ac.kr' 입력 시도...
+2025-09-14 10:40:58,077 - INFO - 이메일 입력 완료
+2025-09-14 10:41:00,195 - INFO - Enter 키로 제출 시도
+2025-09-14 10:41:05,198 - INFO - 검토자 'sjlee@inhatc.ac.kr' 추가 완료
+2025-09-14 10:41:07,202 - INFO - 처리 중 (2/4): 조유영 - [eBook] 알기쉬운 선형대수(12판) - choyouyoung@gmail.com
+2025-09-14 10:41:07,211 - INFO - 도서 검색 시작: [eBook] 알기쉬운 선형대수(12판)
+2025-09-14 10:41:07,214 - INFO - 네비게이션 메뉴 클릭 시도...
+2025-09-14 10:41:09,107 - INFO - 네비게이션 메뉴 클릭 성공
+2025-09-14 10:41:12,107 - INFO - 출판사 선택 드롭다운 클릭 시도...
+2025-09-14 10:41:12,351 - INFO - 출판사 선택 드롭다운 열기 성공
+2025-09-14 10:41:14,530 - INFO - 한빛아카데미 출판사 선택 성공
+2025-09-14 10:41:16,532 - INFO - 도서 검색 필드에 '[eBook] 알기쉬운 선형대수(12판)' 입력 시도...
+2025-09-14 10:41:26,873 - INFO - 도서 검색 입력 완료
+2025-09-14 10:41:26,874 - INFO - 검색 결과 중 첫 번째 도서 클릭 시도...
+2025-09-14 10:42:43,233 - ERROR - 검색 결과에서 첫 번째 도서를 찾을 수 없습니다
+2025-09-14 10:42:43,235 - INFO - 처리 중 (3/4): 김경순 - [eBook] IT CookBook, MySQL로 배우는 데이터베이스 개론과 실습(2판) - anamorne71@gmail.com
+2025-09-14 10:42:43,243 - INFO - 도서 검색 시작: [eBook] IT CookBook, MySQL로 배우는 데이터베이스 개론과 실습(2판)
+2025-09-14 10:42:43,243 - INFO - 네비게이션 메뉴 클릭 시도...
+2025-09-14 10:42:43,452 - INFO - 네비게이션 메뉴 클릭 성공
+2025-09-14 10:42:46,452 - INFO - 출판사 선택 드롭다운 클릭 시도...
+2025-09-14 10:42:46,458 - WARNING - 출판사 선택 실패: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=140.0.7339.128); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+	GetHandleVerifier [0x0x129d2a3+66419]
+	GetHandleVerifier [0x0x129d2e4+66484]
+	(No symbol) [0x0x1074bd3]
+	(No symbol) [0x0x1064070]
+	(No symbol) [0x0x108277b]
+	(No symbol) [0x0x10e7a45]
+	(No symbol) [0x0x11021b9]
+	(No symbol) [0x0x10e0e16]
+	(No symbol) [0x0x10b25ce]
+	(No symbol) [0x0x10b34a4]
+	GetHandleVerifier [0x0x14e5ee3+2461619]
+	GetHandleVerifier [0x0x14e0f66+2441270]
+	GetHandleVerifier [0x0x12c6242+234258]
+	GetHandleVerifier [0x0x12b6208+168664]
+	GetHandleVerifier [0x0x12bd1ad+197245]
+	GetHandleVerifier [0x0x12a55f8+100040]
+	GetHandleVerifier [0x0x12a5792+100450]
+	GetHandleVerifier [0x0x128f74a+10266]
+	timeGetTime [0x0x76558708+728232]
+	timeGetTime [0x0x764ae81c+32188]
+	fltused [0x0x7700fc4c+525064]
+	fltused [0x0x7700fba8+524900]
+	fltused [0x0x770e968c+1416520]
+. 기본값으로 진행...
+2025-09-14 10:42:46,459 - INFO - 도서 검색 필드에 '[eBook] IT CookBook, MySQL로 배우는 데이터베이스 개론과 실습(2판)' 입력 시도...
+2025-09-14 10:42:46,647 - ERROR - 도서 검색 실패: Message: invalid session id; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+	GetHandleVerifier [0x0x129d2a3+66419]
+	GetHandleVerifier [0x0x129d2e4+66484]
+	(No symbol) [0x0x1074a20]
+	(No symbol) [0x0x10b18a3]
+	(No symbol) [0x0x10e0ed6]
+	(No symbol) [0x0x10dc7bb]
+	(No symbol) [0x0x10dbd43]
+	(No symbol) [0x0x10459ed]
+	(No symbol) [0x0x1045f6e]
+	(No symbol) [0x0x104640d]
+	GetHandleVerifier [0x0x14e5ee3+2461619]
+	GetHandleVerifier [0x0x14e0f66+2441270]
+	GetHandleVerifier [0x0x12c6242+234258]
+	GetHandleVerifier [0x0x12b6208+168664]
+	GetHandleVerifier [0x0x12bd1ad+197245]
+	(No symbol) [0x0x10456a2]
+	(No symbol) [0x0x1044eb9]
+	GetHandleVerifier [0x0x1610fdc+3686572]
+	timeGetTime [0x0x76558708+728232]
+	timeGetTime [0x0x764ae81c+32188]
+	fltused [0x0x7700fc4c+525064]
+	fltused [0x0x7700fba8+524900]
+	fltused [0x0x770e968c+1416520]
+
+2025-09-14 10:42:46,649 - INFO - 처리 중 (4/4): 홍동철 - [eBook] 누구나 R 데이터 분석 - eduforone@gmail.com
+2025-09-14 10:42:46,653 - INFO - 도서 검색 시작: [eBook] 누구나 R 데이터 분석
+2025-09-14 10:42:46,653 - INFO - 네비게이션 메뉴 클릭 시도...
+2025-09-14 10:42:46,656 - ERROR - 도서 검색 실패: Message: invalid session id; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+	GetHandleVerifier [0x0x129d2a3+66419]
+	GetHandleVerifier [0x0x129d2e4+66484]
+	(No symbol) [0x0x1074a20]
+	(No symbol) [0x0x10b18a3]
+	(No symbol) [0x0x10e0ed6]
+	(No symbol) [0x0x10dc7bb]
+	(No symbol) [0x0x10dbd43]
+	(No symbol) [0x0x10459ed]
+	(No symbol) [0x0x1045f6e]
+	(No symbol) [0x0x104640d]
+	GetHandleVerifier [0x0x14e5ee3+2461619]
+	GetHandleVerifier [0x0x14e0f66+2441270]
+	GetHandleVerifier [0x0x12c6242+234258]
+	GetHandleVerifier [0x0x12b6208+168664]
+	GetHandleVerifier [0x0x12bd1ad+197245]
+	(No symbol) [0x0x10456a2]
+	(No symbol) [0x0x1044eb9]
+	GetHandleVerifier [0x0x1610fdc+3686572]
+	timeGetTime [0x0x76558708+728232]
+	timeGetTime [0x0x764ae81c+32188]
+	fltused [0x0x7700fc4c+525064]
+	fltused [0x0x7700fba8+524900]
+	fltused [0x0x770e968c+1416520]
+
+2025-09-14 10:42:46,658 - INFO - 등록 완료 - 성공: 1, 실패: 3

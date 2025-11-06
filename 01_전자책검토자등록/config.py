@@ -6,11 +6,34 @@ Google Play Console 전자책 검토자 등록을 위한 고급 설정 파일
 # Google Play Console 관련 URL
 GOOGLE_PLAY_CONSOLE_BASE_URL = "https://play.google.com/console/"
 GOOGLE_PLAY_DEVELOPER_CONSOLE = "https://play.google.com/console/u/0/developers/"
+GOOGLE_PLAY_BOOKS_PARTNER_CENTER = "https://play.google.com/books/publish/u/0/?hl=ko"
+
+# --- Google 스프레드시트 설정 ---
+# '링크가 있는 모든 사용자에게 공개'로 설정된 Google 스프레드시트의 URL을 입력하세요.
+# URL 형식: https://docs.google.com/spreadsheets/d/{스프레드시트_ID}/export?format=csv
+GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/18uXAoTIz07WEBzFgCYC5asaOUkLujYgQtezDsmPWiGY/export?format=csv&gid=0" # <--- 여기에 실제 스프레드시트 URL을 입력하세요.
+# ------------------------------------
 
 # 로그인 관련 설정
 LOGIN_TIMEOUT = 300  # 5분
 ELEMENT_WAIT_TIMEOUT = 15  # 15초
 REQUEST_DELAY = 2  # 요청 간 대기 시간
+
+# 크롬 드라이버 설정
+# 직접 크롬 드라이버 경로를 지정하려면 아래 주석을 해제하고 경로를 입력하세요
+# CHROME_DRIVER_PATH = r"C:\path\to\chromedriver.exe"  # 윈도우 예시
+
+# 크롬 브라우저 옵션 (주석을 해제하여 원하는 옵션 활성화)
+CHROME_OPTIONS = [
+    "--disable-web-security", 
+    "--disable-features=VizDisplayCompositor",
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--disable-blink-features=AutomationControlled",
+    # "--headless",  # 브라우저 창 없이 실행 (백그라운드 모드)
+    # "--disable-gpu",  # GPU 사용 안 함
+    # "--window-size=1920,1080"  # 창 크기 설정
+]
 
 # CSS 셀렉터 및 XPath 설정
 SELECTORS = {
@@ -94,6 +117,10 @@ CHROME_OPTIONS = [
     "--disable-backgrounding-occluded-windows",
     "--disable-renderer-backgrounding"
 ]
+
+# 크롬 브라우저 경로 직접 지정 (설치 경로에 맞게 수정)
+# 예시: CHROME_BINARY_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+CHROME_BINARY_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 
 # 자동화 감지 방지 스크립트
 ANTI_DETECTION_SCRIPT = """

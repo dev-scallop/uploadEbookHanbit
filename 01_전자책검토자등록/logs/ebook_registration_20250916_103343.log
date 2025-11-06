@@ -1,0 +1,5 @@
+2025-09-16 10:33:43,378 - INFO - 전자책 검토자 자동 등록 시스템 시작
+2025-09-16 10:33:46,757 - INFO - Google 스프레드시트 URL에서 데이터 읽기 시도: https://docs.google.com/spreadsheets/d/18uXAoTIz07WEBzFgCYC5asaOUkLujYgQtezDsmPWiGY/export?format=csv&gid=0
+2025-09-16 10:33:48,400 - INFO - Google 스프레드시트 읽기 성공: 총 3925개의 행 발견
+2025-09-16 10:33:48,401 - INFO - 스프레드시트 컬럼: ['code', 'title', 'ISBN', 'eISBN', 'publisher', 'g_title', 's_isbn']
+2025-09-16 10:33:48,402 - ERROR - Google 스프레드시트 데이터 처리 실패: 필수 컬럼 누락: ['이름', '도서명', '지메일']

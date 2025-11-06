@@ -13,21 +13,28 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.chrome.options import Options
 from typing import List, Tuple
+from webdriver_manager.chrome import ChromeDriverManager
 
 class EbookRegistration:
-    def __init__(self, driver_path: str):
-        self.driver_path = driver_path
+    def __init__(self):
         self.driver = None
         self.wait = None
         self.setup_driver()
 
     def setup_driver(self):
-        """크롬 드라이버 설정"""
-        chrome_options = Options()
-        # chrome_options.add_argument("--headless")  # 일단 주석 처리
-        service = Service(executable_path=self.driver_path)
-        self.driver = webdriver.Chrome(service=service, options=chrome_options)
-        self.wait = WebDriverWait(self.driver, 20)
+        """크롬 드라이버 설정 - 자동 다운로드"""
+        try:
+            chrome_options = Options()
+            # chrome_options.add_argument("--headless")  # 일단 주석 처리
+            
+            # ChromeDriverManager를 사용하여 자동으로 크롬 드라이버 다운로드 및 설정
+            service = Service(ChromeDriverManager().install())
+            self.driver = webdriver.Chrome(service=service, options=chrome_options)
+            self.wait = WebDriverWait(self.driver, 20)
+            
+        except Exception as e:
+            messagebox.showerror("드라이버 오류", f"크롬 드라이버 설정 중 오류 발생: {e}")
+            raise
 
     def login(self):
         """로그인 페이지로 이동 후, 사용자가 직접 로그인하도록 안내"""
@@ -67,7 +74,17 @@ class EbookRegistration:
             search_key = self.wait.until(EC.presence_of_element_located((By.ID, "search_key")))
             search_key.click()
             time.sleep(1)
-            search_key.find_elements(By.TAG_NAME, "option")[0].click()
+            
+            # 드롭다운에서 "아이디" 옵션 선택 (보통 1번 인덱스)
+            options = search_key.find_elements(By.TAG_NAME, "option")
+            # 옵션 텍스트로 "아이디" 또는 "ID" 찾기
+            for i, option in enumerate(options):
+                if "아이디" in option.text or "ID" in option.text.upper():
+                    option.click()
+                    break
+            else:
+                # 아이디 옵션을 찾지 못한 경우 1번 인덱스 선택 (일반적으로 아이디가 1번)
+                options[1].click() if len(options) > 1 else options[0].click()
 
             keyword_input = self.wait.until(EC.presence_of_element_located((By.ID, "keyword")))
             keyword_input.send_keys(user_name + "\n")
@@ -149,10 +166,9 @@ class EbookRegistration:
 
 def run_script_threaded():
     file_path = excel_path_entry.get()
-    driver_path = driver_path_entry.get()
 
-    if not file_path or not driver_path:
-        messagebox.showerror("오류", "엑셀 파일과 크롬드라이버 파일을 모두 선택해주세요.")
+    if not file_path:
+        messagebox.showerror("오류", "엑셀 파일을 선택해주세요.")
         return
 
     try:
@@ -178,7 +194,7 @@ def run_script_threaded():
         messagebox.showerror("오류", "엑셀 파일에 필요한 데이터가 부족합니다.")
         return
 
-    ebook_reg = EbookRegistration(driver_path)
+    ebook_reg = EbookRegistration()
     try:
         ebook_reg.login()
         success_count = 0
@@ -205,37 +221,33 @@ def select_excel_file():
     excel_path_entry.delete(0, tk.END)
     excel_path_entry.insert(0, file_path)
 
-def select_driver_file():
-    driver_path = filedialog.askopenfilename(filetypes=[("Executable files", "*.exe")])
-    driver_path_entry.delete(0, tk.END)
-    driver_path_entry.insert(0, driver_path)
-
 # GUI 설정
 root = tk.Tk()
 root.title("전자책 자동 등록 스크립트")
 
+# 엑셀 파일 형태 설명 추가
+info_label = tk.Label(root, text="엑셀 파일 형태: A열(이름), B열(이메일), C열(책제목) - 첫 번째 행은 헤더로 제외됩니다", 
+                     fg="blue", font=("Arial", 9))
+info_label.grid(row=0, column=0, columnspan=3, padx=10, pady=5, sticky=tk.W)
+
+# 크롬 드라이버 자동 다운로드 안내 추가
+driver_info_label = tk.Label(root, text="크롬 드라이버는 자동으로 다운로드됩니다", 
+                            fg="green", font=("Arial", 9))
+driver_info_label.grid(row=1, column=0, columnspan=3, padx=10, pady=5, sticky=tk.W)
+
 excel_label = tk.Label(root, text="엑셀 파일 경로:")
-excel_label.grid(row=0, column=0, padx=10, pady=5, sticky=tk.W)
+excel_label.grid(row=2, column=0, padx=10, pady=5, sticky=tk.W)
 
 excel_path_entry = tk.Entry(root, width=50)
-excel_path_entry.grid(row=0, column=1, padx=10, pady=5)
+excel_path_entry.grid(row=2, column=1, padx=10, pady=5)
 
 excel_button = tk.Button(root, text="찾아보기", command=select_excel_file)
-excel_button.grid(row=0, column=2, padx=10, pady=5)
-
-driver_label = tk.Label(root, text="크롬 드라이버 경로:")
-driver_label.grid(row=1, column=0, padx=10, pady=5, sticky=tk.W)
-
-driver_path_entry = tk.Entry(root, width=50)
-driver_path_entry.grid(row=1, column=1, padx=10, pady=5)
-
-driver_button = tk.Button(root, text="찾아보기", command=select_driver_file)
-driver_button.grid(row=1, column=2, padx=10, pady=5)
+excel_button.grid(row=2, column=2, padx=10, pady=5)
 
 run_button = tk.Button(root, text="실행", command=run_script)
-run_button.grid(row=2, column=1, pady=20)
+run_button.grid(row=3, column=1, pady=20)
 
 log_text = scrolledtext.ScrolledText(root, width=60, height=10)
-log_text.grid(row=3, column=0, columnspan=3, padx=10, pady=5)
+log_text.grid(row=4, column=0, columnspan=3, padx=10, pady=5)
 
 root.mainloop()

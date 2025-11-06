@@ -1,0 +1,56 @@
+2025-09-16 10:15:21,527 - INFO - 전자책 검토자 자동 등록 시스템 시작
+2025-09-16 10:15:25,208 - INFO - 엑셀 파일 읽기 성공: C:/Users/taejin/Downloads/전자책견본처리현황_2025-06-16 ~ 2025-09-16.xls
+2025-09-16 10:15:25,208 - INFO - 총 3개의 행이 발견됨
+2025-09-16 10:15:25,208 - INFO - 엑셀 파일 컬럼: ['접수일', '발송유형', '발송자', '이름', '이메일', '지메일', '휴대전화', '소속학교', '도서코드', '도서명', '처리일', '열람기한', '강의대학', '강의학과', '강의명']
+2025-09-16 10:15:25,209 - INFO - I열(도서코드) 컬럼명: '도서코드'
+2025-09-16 10:15:25,210 - INFO - 도서코드 컬럼 '도서코드' 포함하여 데이터 처리 완료
+2025-09-16 10:15:25,210 - INFO - 유효한 데이터: 3개 행
+2025-09-16 10:15:25,212 - INFO - 데이터 샘플:
+ 이름                                                      도서명                        지메일  도서코드
+정정윤 [eBook] IT CookBook, Android Studio를 활용한 안드로이드 프로그래밍(9판)       jcheongyun@gmail.com 40021
+김민호                      [eBook] IT CookBook, 파이썬으로 만드는 인공지능          bamnabi@gmail.com  4508
+이두원                         [eBook] IT Cookbook, 처음 만나는 전자회로 ectechlaboratory@gmail.com  4449
+2025-09-16 10:15:28,614 - INFO - 도서 데이터베이스 로드 시작...
+2025-09-16 10:15:28,617 - INFO - 구글 스프레드시트에서 도서 데이터베이스 로드 중...
+2025-09-16 10:15:30,195 - INFO - 스프레드시트 로드 성공: 3925행 발견
+2025-09-16 10:15:30,195 - INFO - 컬럼명 변환 결과: ['도서코드', '도서명', 'ISBN', 'eISBN', '출판사', 'g_title', 's_isbn']
+2025-09-16 10:15:30,196 - WARNING - 스프레드시트 컬럼 개수(7)와 기대값(6)이 다릅니다. 실제 컬럼명: ['도서코드', '도서명', 'ISBN', 'eISBN', '출판사', 'g_title', 's_isbn']
+2025-09-16 10:15:30,297 - INFO - 도서 데이터베이스 로드 완료: 3925개 도서
+2025-09-16 10:15:30,297 - INFO - 출판사별 도서 수: {'í\x95\x9cë¹\x9bì\x95\x84ì¹´ë\x8d°ë¯¸': 849, 'í\x95\x9cë¹\x9bë¯¸ë\x94\x94ì\x96´': 3076}
+2025-09-16 10:15:30,299 - INFO - 웹 드라이버 설정 시작...
+2025-09-16 10:15:30,301 - INFO - Chrome 드라이버 설정 시작...
+2025-09-16 10:15:30,302 - INFO - config.py에서 크롬 브라우저 경로 사용: C:\Program Files\Google\Chrome\Application\chrome.exe
+2025-09-16 10:15:30,302 - INFO - ChromeDriverManager를 사용하여 드라이버 다운로드 중...
+2025-09-16 10:15:30,302 - INFO - ====== WebDriver manager ======
+2025-09-16 10:15:30,995 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-16 10:15:31,216 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-16 10:15:31,427 - INFO - Driver [C:\Users\taejin\.wdm\drivers\chromedriver\win64\140.0.7339.82\chromedriver-win32/chromedriver.exe] found in cache
+2025-09-16 10:15:31,428 - INFO - 크롬 드라이버 다운로드 성공: C:\Users\taejin\.wdm\drivers\chromedriver\win64\140.0.7339.82\chromedriver-win32/chromedriver.exe
+2025-09-16 10:15:32,496 - INFO - 자동화 감지 방지 스크립트 실행 완료
+2025-09-16 10:15:32,496 - INFO - Chrome 드라이버 설정 완료
+2025-09-16 10:15:32,496 - INFO - Google 로그인 시도...
+2025-09-16 10:15:32,499 - INFO - Google Play Books 파트너스 센터로 이동: https://play.google.com/books/publish/u/0/?hl=ko
+2025-09-16 10:15:36,607 - INFO - 현재 URL: https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fplay.google.com%2Fbooks%2Fpublish%2Fredirect&followup=https%3A%2F%2Fplay.google.com%2Fbooks%2Fpublish%2Fredirect&ifkv=AfYwgwUEV5rFfaLdYEnYr7dqBKeMd-Plnquw_oYKFXEMX88D3rdeKxprz9uNaNEcKGP30coZgwxeYA&passive=1209600&service=printpublisher&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-234430983%3A1757985337393255
+2025-09-16 10:15:36,608 - INFO - ============================================================
+2025-09-16 10:15:36,608 - INFO - 🔐 Google Play Books 파트너스 센터 로그인이 필요합니다.
+2025-09-16 10:15:36,608 - INFO - 📌 브라우저 창에서 다음 단계를 진행해주세요:
+2025-09-16 10:15:36,608 - INFO -    1. Google 계정으로 로그인
+2025-09-16 10:15:36,608 - INFO -    2. 2단계 인증 완료 (필요한 경우)
+2025-09-16 10:15:36,608 - INFO -    3. Google Play Books 파트너스 센터 대시보드가 표시될 때까지 대기
+2025-09-16 10:15:36,609 - INFO - ============================================================
+2025-09-16 10:15:57,578 - INFO - ✅ 사용자가 로그인 완료를 확인했습니다.
+2025-09-16 10:15:57,579 - INFO - 처리 중 (1/3): 정정윤 - [eBook] IT CookBook, Android Studio를 활용한 안드로이드 프로그래밍(9판) - jcheongyun@gmail.com
+2025-09-16 10:15:57,579 - INFO -   도서코드: 40021, ISBN: 9791156640219, 출판사: íë¹ìì¹´ë°ë¯¸
+2025-09-16 10:15:57,584 - INFO - 도서 검색 시작 - 도서코드: 40021
+2025-09-16 10:15:57,585 - INFO - 도서 정보 - 제목: êµì¬)Android Studioë¥¼ íì©í ìëë¡ì´ë íë¡ê·¸ëë°(9í) : Android 14.0(U) ì§ì, ISBN: 9791156640219, eISBN: 9791156640776, 출판사: íë¹ìì¹´ë°ë¯¸
+2025-09-16 10:15:57,585 - INFO - 도서 목록 페이지로 직접 이동: https://play.google.com/books/publish/a/535699340789858766#list?sortby=last_updated&sortdir=desc
+2025-09-16 10:16:00,597 - INFO - 도서 목록 페이지 로드 완료
+2025-09-16 10:16:02,631 - INFO - 페이지 요소 로드 대기 완료
+2025-09-16 10:16:02,632 - INFO - 출판사 선택 드롭다운 클릭 시도... (대상 출판사: íë¹ìì¹´ë°ë¯¸)
+2025-09-16 10:16:02,715 - INFO - 출판사 선택 드롭다운 열기 성공
+2025-09-16 10:16:04,716 - WARNING - 알 수 없는 출판사: íë¹ìì¹´ë°ë¯¸. 한빛아카데미로 기본 설정
+2025-09-16 10:16:04,718 - INFO - 선택할 출판사: 한빛아카데미
+2025-09-16 10:16:07,769 - INFO - 한빛아카데미 출판사 선택 성공
+2025-09-16 10:16:09,770 - INFO - 검색창에 도서명 'Android Studioë¥¼ íì©í ìëë¡ì´ë íë¡ê·¸ëë°(9í) : Android 14.0(U) ì§ì' 입력 시도...
+2025-09-16 10:16:16,180 - INFO - 도서명 검색 입력 완료
+2025-09-16 10:16:16,181 - INFO - 검색 결과 중 첫 번째 도서 클릭 시도...

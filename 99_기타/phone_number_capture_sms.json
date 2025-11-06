@@ -1,0 +1,400 @@
+{
+  "WFWorkflowClientVersion": "1050.12",
+  "WFWorkflowClientRelease": "4.0.2",
+  "WFWorkflowMinimumClientVersion": 900,
+  "WFWorkflowIcon": {
+    "WFWorkflowIconStartColor": 4282601983,
+    "WFWorkflowIconGlyphNumber": 59741
+  },
+  "WFWorkflowName": "전화번호 인식 후 문자 발송",
+  "WFWorkflowTypes": [],
+  "WFWorkflowInputContentItemClasses": [],
+  "WFWorkflowActions": [
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "B1D2F3C4-E5A6-47B8-9C0D-1E2F3A4B5C6D",
+        "WFMenuPrompt": "전화번호 입력 방식을 선택하세요",
+        "WFMenuItems": [
+          "카메라로 전화번호 스캔",
+          "직접 전화번호 입력"
+        ],
+        "WFControlFlowMode": 0
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.takephoto",
+      "WFWorkflowActionParameters": {
+        "WFCameraCaptureShowPreview": true,
+        "WFCameraCaptureDevice": "0",
+        "WFCameraCaptureVideo": false
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.detectdatafromimage",
+      "WFWorkflowActionParameters": {
+        "WFImage": {
+          "Value": {
+            "OutputUUID": "D9F8A5F1-9C35-4477-8020-D6D266E71A64",
+            "Type": "ActionOutput",
+            "OutputName": "사진"
+          },
+          "WFSerializationType": "WFTextTokenAttachment"
+        },
+        "WFDetectDataType": {
+          "Value": "Phone Numbers",
+          "WFSerializationType": "WFEnumerationValue"
+        }
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.conditional",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "ABA72877-C0A6-4CB4-9549-2993B3C6B0A2",
+        "WFCondition": {
+          "Value": "Is Empty",
+          "WFSerializationType": "WFEnumerationValue"
+        },
+        "WFConditionalActionString": {
+          "Value": {
+            "string": "${DetectedData}",
+            "attachmentsByRange": {
+              "{0, 1}": {
+                "Type": "Variable",
+                "VariableName": "감지된 데이터"
+              }
+            }
+          },
+          "WFSerializationType": "WFTextTokenString"
+        },
+        "WFControlFlowMode": 0
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.alert",
+      "WFWorkflowActionParameters": {
+        "WFAlertActionTitle": "전화번호를 찾을 수 없습니다",
+        "WFAlertActionMessage": "이미지에서 전화번호를 인식할 수 없습니다. 다시 시도해주세요.",
+        "WFAlertActionCancelButtonShown": false
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.conditional",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "ABA72877-C0A6-4CB4-9549-2993B3C6B0A2",
+        "WFControlFlowMode": 1
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "B1D2F3C4-E5A6-47B8-9C0D-1E2F3A4B5C6D",
+        "WFControlFlowMode": 2
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "B1D2F3C4-E5A6-47B8-9C0D-1E2F3A4B5C6D",
+        "WFControlFlowMode": 1
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.askforsomething",
+      "WFWorkflowActionParameters": {
+        "WFAskActionPrompt": "문자를 보낼 전화번호를 입력하세요",
+        "WFAskActionDefaultAnswer": "010-"
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.setitemname",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Value": {
+            "string": "${WFUserEnteredText}",
+            "attachmentsByRange": {
+              "{0, 1}": {
+                "Type": "Variable",
+                "VariableName": "사용자 입력 텍스트"
+              }
+            }
+          },
+          "WFSerializationType": "WFTextTokenString"
+        },
+        "WFName": "DetectedData"
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "B1D2F3C4-E5A6-47B8-9C0D-1E2F3A4B5C6D",
+        "WFControlFlowMode": 2
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFMenuPrompt": "담당자를 선택하세요",
+        "WFMenuItems": [
+          "김성삼 책임 010-3233-4321",
+          "김태진 책임 010-2582-1877",
+          "임현기 책임 010-3827-9725",
+          "이성훈 책임 010-8536-3253",
+          "김주성 책임 010-6481-0664",
+          "이정훈 책임 010-3897-9167",
+          "길진철 부장 010-2213-7482",
+          "이윤형 부장 010-7415-4321"
+        ],
+        "WFControlFlowMode": 0
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.setitemname",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Value": {
+            "string": "김성삼 책임 010-3233-4321",
+            "attachmentsByRange": {}
+          },
+          "WFSerializationType": "WFTextTokenString"
+        },
+        "WFName": "선택된담당자"
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 2
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 1
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.setitemname",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Value": {
+            "string": "김태진 책임 010-2582-1877",
+            "attachmentsByRange": {}
+          },
+          "WFSerializationType": "WFTextTokenString"
+        },
+        "WFName": "선택된담당자"
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 2
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 1
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.setitemname",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Value": {
+            "string": "임현기 책임 010-3827-9725",
+            "attachmentsByRange": {}
+          },
+          "WFSerializationType": "WFTextTokenString"
+        },
+        "WFName": "선택된담당자"
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 2
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 1
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.setitemname",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Value": {
+            "string": "이성훈 책임 010-8536-3253",
+            "attachmentsByRange": {}
+          },
+          "WFSerializationType": "WFTextTokenString"
+        },
+        "WFName": "선택된담당자"
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 2
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 1
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.setitemname",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Value": {
+            "string": "김주성 책임 010-6481-0664",
+            "attachmentsByRange": {}
+          },
+          "WFSerializationType": "WFTextTokenString"
+        },
+        "WFName": "선택된담당자"
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 2
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 1
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.setitemname",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Value": {
+            "string": "이정훈 책임 010-3897-9167",
+            "attachmentsByRange": {}
+          },
+          "WFSerializationType": "WFTextTokenString"
+        },
+        "WFName": "선택된담당자"
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 2
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 1
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.setitemname",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Value": {
+            "string": "길진철 부장 010-2213-7482",
+            "attachmentsByRange": {}
+          },
+          "WFSerializationType": "WFTextTokenString"
+        },
+        "WFName": "선택된담당자"
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 2
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 1
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.setitemname",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Value": {
+            "string": "이윤형 부장 010-7415-4321",
+            "attachmentsByRange": {}
+          },
+          "WFSerializationType": "WFTextTokenString"
+        },
+        "WFName": "선택된담당자"
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.choosefrommenu",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "9C63BB47-83AB-48E9-9548-CF7C925D4F62",
+        "WFControlFlowMode": 2
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.sms",
+      "WFWorkflowActionParameters": {
+        "WFSMSActionRecipients": {
+          "Value": {
+            "string": "${DetectedData}",
+            "attachmentsByRange": {
+              "{0, 1}": {
+                "Type": "Variable",
+                "VariableName": "감지된 데이터"
+              }
+            }
+          },
+          "WFSerializationType": "WFTextTokenString"
+        },
+        "WFSMSActionMessage": {
+          "Value": {
+            "string": "[한빛아카데미]\n담당 영업자\n${선택된담당자}\n감사합니다",
+            "attachmentsByRange": {
+              "{19, 1}": {
+                "Type": "Variable",
+                "VariableName": "선택된담당자"
+              }
+            }
+          },
+          "WFSerializationType": "WFTextTokenString"
+        }
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.showresult",
+      "WFWorkflowActionParameters": {
+        "Text": {
+          "Value": "문자를 성공적으로 발송했습니다.",
+          "WFSerializationType": "WFTextTokenString"
+        }
+      }
+    }
+  ]
+}

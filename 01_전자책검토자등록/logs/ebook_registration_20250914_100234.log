@@ -1,0 +1,39 @@
+2025-09-14 10:02:34,660 - INFO - 전자책 검토자 자동 등록 시스템 시작
+2025-09-14 10:03:18,599 - INFO - 엑셀 파일 읽기 성공: C:/Users/taejin/Downloads/전자책견본처리현황_2025-06-14 ~ 2025-09-14.xls
+2025-09-14 10:03:18,599 - INFO - 총 4개의 행이 발견됨
+2025-09-14 10:03:18,601 - INFO - 유효한 데이터: 4개 행
+2025-09-14 10:04:01,134 - INFO - ====== WebDriver manager ======
+2025-09-14 10:04:02,461 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-14 10:04:03,057 - INFO - About to download new driver from https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_win32.zip
+2025-09-14 10:04:03,450 - INFO - Driver downloading response is 200
+2025-09-14 10:04:04,244 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-14 10:04:05,157 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-14 10:04:06,041 - INFO - Driver has been saved in cache [C:\Users\taejin\.wdm\drivers\chromedriver\win64\114.0.5735.90]
+2025-09-14 10:04:10,810 - ERROR - 드라이버 설정 실패: Message: unknown error: cannot find Chrome binary
+Stacktrace:
+Backtrace:
+	GetHandleVerifier [0x0061A813+48355]
+	(No symbol) [0x005AC4B1]
+	(No symbol) [0x004B5358]
+	(No symbol) [0x004D1A9E]
+	(No symbol) [0x004D0579]
+	(No symbol) [0x00500C55]
+	(No symbol) [0x0050093C]
+	(No symbol) [0x004FA536]
+	(No symbol) [0x004D82DC]
+	(No symbol) [0x004D93DD]
+	GetHandleVerifier [0x0087AABD+2539405]
+	GetHandleVerifier [0x008BA78F+2800735]
+	GetHandleVerifier [0x008B456C+2775612]
+	GetHandleVerifier [0x006A51E0+616112]
+	(No symbol) [0x005B5F8C]
+	(No symbol) [0x005B2328]
+	(No symbol) [0x005B240B]
+	(No symbol) [0x005A4FF7]
+	timeGetTime [0x76558708+728232]
+	timeGetTime [0x764AE81C+32188]
+	fltused [0x7700FC4C+525064]
+	fltused [0x7700FBA8+524900]
+	fltused [0x770E968C+1416520]
+
+2025-09-14 10:04:10,817 - ERROR - 등록 프로세스 실패: 드라이버 설정 실패

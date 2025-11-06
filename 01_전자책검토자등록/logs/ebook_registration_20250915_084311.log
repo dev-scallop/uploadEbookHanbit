@@ -1,0 +1,190 @@
+2025-09-15 08:43:11,019 - INFO - 전자책 검토자 자동 등록 시스템 시작
+2025-09-15 08:43:14,243 - INFO - 엑셀 파일 읽기 성공: C:/Users/taejin/Downloads/전자책견본처리현황_2025-06-15 ~ 2025-09-15.xls
+2025-09-15 08:43:14,243 - INFO - 총 4개의 행이 발견됨
+2025-09-15 08:43:14,243 - INFO - 엑셀 파일 컬럼: ['접수일', '발송유형', '발송자', '이름', '이메일', '지메일', '휴대전화', '소속학교', '도서코드', '도서명', '처리일', '열람기한', '강의대학', '강의학과', '강의명']
+2025-09-15 08:43:14,245 - INFO - I열(도서코드) 컬럼명: '도서코드'
+2025-09-15 08:43:14,246 - INFO - 도서코드 컬럼 '도서코드' 포함하여 데이터 처리 완료
+2025-09-15 08:43:14,246 - INFO - 유효한 데이터: 4개 행
+2025-09-15 08:43:14,247 - INFO - 데이터 샘플:
+ 이름                                도서명                지메일  도서코드
+김태진      [eBook] 혼자 공부하는 머신러닝+딥러닝(개정판)   kxowls@gmail.com 11360
+문남미 [eBook] IT CookBook, 생성형 AI 활용과 실습 nammee01@gmail.com 41029
+문남미         [eBook] IT Cookbook, 강화 학습 nammee01@gmail.com 41007
+2025-09-15 08:43:19,574 - INFO - 도서 데이터베이스 로드 시작...
+2025-09-15 08:43:19,577 - INFO - 구글 스프레드시트에서 도서 데이터베이스 로드 중...
+2025-09-15 08:43:20,680 - INFO - 도서 데이터베이스 컬럼: ['도서코드', '도서명', 'ISBN', '출판사']
+2025-09-15 08:43:20,759 - INFO - 도서 데이터베이스 로드 완료: 3925개 도서
+2025-09-15 08:43:20,760 - INFO - 출판사별 도서 수: {'한빛아카데미': 849, '한빛미디어': 3076}
+2025-09-15 08:43:20,760 - INFO - 웹 드라이버 설정 시작...
+2025-09-15 08:43:20,762 - INFO - Chrome 드라이버 설정 시작...
+2025-09-15 08:43:20,762 - INFO - config.py에서 크롬 브라우저 경로 사용: C:\Program Files\Google\Chrome\Application\chrome.exe
+2025-09-15 08:43:20,762 - INFO - ChromeDriverManager를 사용하여 드라이버 다운로드 중...
+2025-09-15 08:43:20,762 - INFO - ====== WebDriver manager ======
+2025-09-15 08:43:21,476 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-15 08:43:21,740 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-15 08:43:21,999 - INFO - Driver [C:\Users\taejin\.wdm\drivers\chromedriver\win64\140.0.7339.82\chromedriver-win32/chromedriver.exe] found in cache
+2025-09-15 08:43:21,999 - INFO - 크롬 드라이버 다운로드 성공: C:\Users\taejin\.wdm\drivers\chromedriver\win64\140.0.7339.82\chromedriver-win32/chromedriver.exe
+2025-09-15 08:43:23,071 - INFO - 자동화 감지 방지 스크립트 실행 완료
+2025-09-15 08:43:23,071 - INFO - Chrome 드라이버 설정 완료
+2025-09-15 08:43:23,071 - INFO - Google 로그인 시도...
+2025-09-15 08:43:23,074 - INFO - Google Play Books 파트너스 센터로 이동: https://play.google.com/books/publish/u/0/?hl=ko
+2025-09-15 08:43:27,209 - INFO - 현재 URL: https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fplay.google.com%2Fbooks%2Fpublish%2Fredirect&followup=https%3A%2F%2Fplay.google.com%2Fbooks%2Fpublish%2Fredirect&ifkv=AdBytiOUeO41ROlS6uXnd_xcOKT8sH7i7NqpjZm397kz2kgs4K7TWvHtAq3HhuuIHYUf5MvRiOaOwA&passive=1209600&service=printpublisher&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-401862131%3A1757893406376289
+2025-09-15 08:43:27,210 - INFO - ============================================================
+2025-09-15 08:43:27,210 - INFO - 🔐 Google Play Books 파트너스 센터 로그인이 필요합니다.
+2025-09-15 08:43:27,210 - INFO - 📌 브라우저 창에서 다음 단계를 진행해주세요:
+2025-09-15 08:43:27,210 - INFO -    1. Google 계정으로 로그인
+2025-09-15 08:43:27,210 - INFO -    2. 2단계 인증 완료 (필요한 경우)
+2025-09-15 08:43:27,210 - INFO -    3. Google Play Books 파트너스 센터 대시보드가 표시될 때까지 대기
+2025-09-15 08:43:27,210 - INFO - ============================================================
+2025-09-15 08:43:27,214 - INFO - ⏰ 로그인 대기 중... (남은 시간: 300초)
+2025-09-15 08:44:04,117 - INFO - ✅ Google Play Books 파트너스 센터 로그인 완료!
+2025-09-15 08:44:04,117 - INFO - 처리 중 (1/4): 김태진 - [eBook] 혼자 공부하는 머신러닝+딥러닝(개정판) - kxowls@gmail.com
+2025-09-15 08:44:04,118 - INFO -   도서코드: 11360, ISBN: 9791169213608, 출판사: 한빛미디어
+2025-09-15 08:44:04,121 - INFO - 도서 검색 시작 - 도서코드: 11360
+2025-09-15 08:44:04,121 - INFO - 도서 정보 - 제목: 혼자 공부하는 머신러닝+딥러닝(개정판), ISBN: 9791169213608, 출판사: 한빛미디어
+2025-09-15 08:44:04,121 - INFO - 도서 목록 페이지로 직접 이동: https://play.google.com/books/publish/a/535699340789858766#list?sortby=last_updated&sortdir=desc
+2025-09-15 08:44:07,130 - INFO - 도서 목록 페이지 로드 완료
+2025-09-15 08:44:09,140 - INFO - 페이지 요소 로드 대기 완료
+2025-09-15 08:44:09,140 - INFO - 출판사 선택 드롭다운 클릭 시도... (대상 출판사: 한빛미디어)
+2025-09-15 08:44:09,331 - INFO - 출판사 선택 드롭다운 열기 성공
+2025-09-15 08:44:11,332 - INFO - 선택할 출판사: 한빛미디어
+2025-09-15 08:44:11,399 - INFO - 한빛미디어 출판사 선택 성공
+2025-09-15 08:44:13,400 - INFO - 검색창에 ISBN '9791169213608' 입력 시도...
+2025-09-15 08:44:19,632 - INFO - ISBN 검색 입력 완료
+2025-09-15 08:44:19,633 - INFO - 검색 결과 중 첫 번째 도서 클릭 시도...
+2025-09-15 08:45:40,200 - ERROR - 검색 결과 클릭 실패: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=140.0.7339.128); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#staleelementreferenceexception
+Stacktrace:
+	GetHandleVerifier [0x0x3bd2a3+66419]
+	GetHandleVerifier [0x0x3bd2e4+66484]
+	(No symbol) [0x0x194bd3]
+	(No symbol) [0x0x19b597]
+	(No symbol) [0x0x19d974]
+	(No symbol) [0x0x19da08]
+	(No symbol) [0x0x1e4d72]
+	(No symbol) [0x0x1e31a3]
+	(No symbol) [0x0x1e0c57]
+	(No symbol) [0x0x1dfedd]
+	(No symbol) [0x0x1d43c5]
+	(No symbol) [0x0x20101c]
+	(No symbol) [0x0x1d3e24]
+	(No symbol) [0x0x2011d4]
+	(No symbol) [0x0x2228a1]
+	(No symbol) [0x0x200e16]
+	(No symbol) [0x0x1d25ce]
+	(No symbol) [0x0x1d34a4]
+	GetHandleVerifier [0x0x605ee3+2461619]
+	GetHandleVerifier [0x0x600f66+2441270]
+	GetHandleVerifier [0x0x3e6242+234258]
+	GetHandleVerifier [0x0x3d6208+168664]
+	GetHandleVerifier [0x0x3dd1ad+197245]
+	GetHandleVerifier [0x0x3c55f8+100040]
+	GetHandleVerifier [0x0x3c5792+100450]
+	GetHandleVerifier [0x0x3af74a+10266]
+	timeGetTime [0x0x76558708+728232]
+	timeGetTime [0x0x764ae81c+32188]
+	fltused [0x0x7700fc4c+525064]
+	fltused [0x0x7700fba8+524900]
+	fltused [0x0x770e968c+1416520]
+	(No symbol) [0x0]
+
+2025-09-15 08:45:40,204 - INFO - 처리 중 (2/4): 문남미 - [eBook] IT CookBook, 생성형 AI 활용과 실습 - nammee01@gmail.com
+2025-09-15 08:45:40,205 - INFO -   도서코드: 41029, ISBN: 9791173400292, 출판사: 한빛아카데미
+2025-09-15 08:45:40,207 - INFO - 도서 검색 시작 - 도서코드: 41029
+2025-09-15 08:45:40,207 - INFO - 도서 정보 - 제목: 교재)생성형 AI 활용과 실습, ISBN: 9791173400292, 출판사: 한빛아카데미
+2025-09-15 08:45:40,207 - INFO - 도서 목록 페이지로 직접 이동: https://play.google.com/books/publish/a/535699340789858766#list?sortby=last_updated&sortdir=desc
+2025-09-15 08:45:43,212 - INFO - 도서 목록 페이지 로드 완료
+2025-09-15 08:45:45,239 - INFO - 페이지 요소 로드 대기 완료
+2025-09-15 08:45:45,240 - INFO - 출판사 선택 드롭다운 클릭 시도... (대상 출판사: 한빛아카데미)
+2025-09-15 08:45:45,309 - INFO - 출판사 선택 드롭다운 열기 성공
+2025-09-15 08:45:47,309 - INFO - 선택할 출판사: 한빛아카데미
+2025-09-15 08:45:50,334 - INFO - 한빛아카데미 출판사 선택 성공
+2025-09-15 08:45:52,335 - INFO - 검색창에 ISBN '9791173400292' 입력 시도...
+2025-09-15 08:45:58,590 - INFO - ISBN 검색 입력 완료
+2025-09-15 08:45:58,590 - INFO - 검색 결과 중 첫 번째 도서 클릭 시도...
+2025-09-15 08:46:28,816 - INFO - 첫 번째 도서 클릭 성공: //mat-option[1]
+2025-09-15 08:46:31,817 - INFO - 도서 '교재)생성형 AI 활용과 실습' (ISBN: 9791173400292) 검색 및 선택 완료
+2025-09-15 08:46:31,818 - INFO - 검토자 추가 시작: nammee01@gmail.com
+2025-09-15 08:46:31,818 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-15 08:46:47,158 - ERROR - 콘텐츠 검토 아이템을 찾을 수 없습니다
+2025-09-15 08:46:54,466 - INFO - 대체 셀렉터로 클릭 성공: //content-review-item[1]//a
+2025-09-15 08:46:57,467 - INFO - 이메일 입력 필드에 'nammee01@gmail.com' 입력 시도...
+2025-09-15 08:46:57,573 - INFO - 이메일 입력 완료
+2025-09-15 08:46:59,608 - INFO - Enter 키로 제출 시도
+2025-09-15 08:47:04,609 - INFO - 검토자 'nammee01@gmail.com' 추가 완료
+2025-09-15 08:47:06,610 - INFO - 처리 중 (3/4): 문남미 - [eBook] IT Cookbook, 강화 학습 - nammee01@gmail.com
+2025-09-15 08:47:06,611 - INFO -   도서코드: 41007, ISBN: 9791173400070, 출판사: 한빛아카데미
+2025-09-15 08:47:06,615 - INFO - 도서 검색 시작 - 도서코드: 41007
+2025-09-15 08:47:06,615 - INFO - 도서 정보 - 제목: 교재)강화 학습, ISBN: 9791173400070, 출판사: 한빛아카데미
+2025-09-15 08:47:06,616 - INFO - 도서 목록 페이지로 직접 이동: https://play.google.com/books/publish/a/535699340789858766#list?sortby=last_updated&sortdir=desc
+2025-09-15 08:47:12,804 - INFO - 도서 목록 페이지 로드 완료
+2025-09-15 08:47:14,814 - INFO - 페이지 요소 로드 대기 완료
+2025-09-15 08:47:14,814 - INFO - 출판사 선택 드롭다운 클릭 시도... (대상 출판사: 한빛아카데미)
+2025-09-15 08:47:14,900 - INFO - 출판사 선택 드롭다운 열기 성공
+2025-09-15 08:47:16,901 - INFO - 선택할 출판사: 한빛아카데미
+2025-09-15 08:47:19,659 - INFO - 한빛아카데미 출판사 선택 성공
+2025-09-15 08:47:21,659 - INFO - 검색창에 ISBN '9791173400070' 입력 시도...
+2025-09-15 08:47:27,868 - INFO - ISBN 검색 입력 완료
+2025-09-15 08:47:27,869 - INFO - 검색 결과 중 첫 번째 도서 클릭 시도...
+2025-09-15 08:48:39,815 - ERROR - 검색 결과 클릭 실패: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=140.0.7339.128); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+	GetHandleVerifier [0x0x3bd2a3+66419]
+	GetHandleVerifier [0x0x3bd2e4+66484]
+	(No symbol) [0x0x194bd3]
+	(No symbol) [0x0x184070]
+	(No symbol) [0x0x1a277b]
+	(No symbol) [0x0x207a45]
+	(No symbol) [0x0x2221b9]
+	(No symbol) [0x0x200e16]
+	(No symbol) [0x0x1d25ce]
+	(No symbol) [0x0x1d34a4]
+	GetHandleVerifier [0x0x605ee3+2461619]
+	GetHandleVerifier [0x0x600f66+2441270]
+	GetHandleVerifier [0x0x3e6242+234258]
+	GetHandleVerifier [0x0x3d6208+168664]
+	GetHandleVerifier [0x0x3dd1ad+197245]
+	GetHandleVerifier [0x0x3c55f8+100040]
+	GetHandleVerifier [0x0x3c5792+100450]
+	GetHandleVerifier [0x0x3af74a+10266]
+	timeGetTime [0x0x76558708+728232]
+	timeGetTime [0x0x764ae81c+32188]
+	fltused [0x0x7700fc4c+525064]
+	fltused [0x0x7700fba8+524900]
+	fltused [0x0x770e968c+1416520]
+	(No symbol) [0x0]
+
+2025-09-15 08:48:39,815 - INFO - 처리 중 (4/4): 이두원 - [eBook] IT Cookbook, 처음 만나는 전자회로 - ectechlaboratory@gmail.com
+2025-09-15 08:48:39,816 - INFO -   도서코드: 4449, ISBN: 9791156644491, 출판사: 한빛아카데미
+2025-09-15 08:48:39,818 - INFO - 도서 검색 시작 - 도서코드: 4449
+2025-09-15 08:48:39,818 - INFO - 도서 정보 - 제목: 교재375)처음 만나는 전자회로, ISBN: 9791156644491, 출판사: 한빛아카데미
+2025-09-15 08:48:39,818 - INFO - 도서 목록 페이지로 직접 이동: https://play.google.com/books/publish/a/535699340789858766#list?sortby=last_updated&sortdir=desc
+2025-09-15 08:48:39,880 - ERROR - 도서 목록 페이지 이동 실패: Message: invalid session id; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+	GetHandleVerifier [0x0x3bd2a3+66419]
+	GetHandleVerifier [0x0x3bd2e4+66484]
+	(No symbol) [0x0x194a20]
+	(No symbol) [0x0x1d18a3]
+	(No symbol) [0x0x200ed6]
+	(No symbol) [0x0x1fc7bb]
+	(No symbol) [0x0x1fbd43]
+	(No symbol) [0x0x1659ed]
+	(No symbol) [0x0x165f6e]
+	(No symbol) [0x0x16640d]
+	GetHandleVerifier [0x0x605ee3+2461619]
+	GetHandleVerifier [0x0x600f66+2441270]
+	GetHandleVerifier [0x0x3e6242+234258]
+	GetHandleVerifier [0x0x3d6208+168664]
+	GetHandleVerifier [0x0x3dd1ad+197245]
+	(No symbol) [0x0x1656a2]
+	(No symbol) [0x0x164eb9]
+	GetHandleVerifier [0x0x730fdc+3686572]
+	timeGetTime [0x0x76558708+728232]
+	timeGetTime [0x0x764ae81c+32188]
+	fltused [0x0x7700fc4c+525064]
+	fltused [0x0x7700fba8+524900]
+	fltused [0x0x770e968c+1416520]
+	(No symbol) [0x0]
+
+2025-09-15 08:48:39,881 - INFO - 등록 완료 - 성공: 1, 실패: 3

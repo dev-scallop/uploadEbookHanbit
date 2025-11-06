@@ -1,0 +1,29 @@
+2025-09-14 10:24:39,392 - INFO - 전자책 검토자 자동 등록 시스템 시작
+2025-09-14 10:24:42,549 - INFO - 엑셀 파일 읽기 성공: C:/Users/taejin/Downloads/전자책견본처리현황_2025-06-14 ~ 2025-09-14.xls
+2025-09-14 10:24:42,549 - INFO - 총 4개의 행이 발견됨
+2025-09-14 10:24:42,550 - INFO - 유효한 데이터: 4개 행
+2025-09-14 10:24:46,466 - INFO - 웹 드라이버 설정 시작...
+2025-09-14 10:24:46,470 - INFO - Chrome 드라이버 설정 시작...
+2025-09-14 10:24:46,470 - INFO - config.py에서 크롬 브라우저 경로 사용: C:\Program Files\Google\Chrome\Application\chrome.exe
+2025-09-14 10:24:46,471 - INFO - ChromeDriverManager를 사용하여 드라이버 다운로드 중...
+2025-09-14 10:24:46,471 - INFO - ====== WebDriver manager ======
+2025-09-14 10:24:47,277 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-14 10:24:47,600 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-14 10:24:47,883 - INFO - Driver [C:\Users\taejin\.wdm\drivers\chromedriver\win64\140.0.7339.82\chromedriver-win32/chromedriver.exe] found in cache
+2025-09-14 10:24:47,884 - INFO - 크롬 드라이버 다운로드 성공: C:\Users\taejin\.wdm\drivers\chromedriver\win64\140.0.7339.82\chromedriver-win32/chromedriver.exe
+2025-09-14 10:24:48,987 - INFO - 자동화 감지 방지 스크립트 실행 완료
+2025-09-14 10:24:48,989 - INFO - Chrome 드라이버 설정 완료
+2025-09-14 10:24:48,990 - INFO - Google 로그인 시도...
+2025-09-14 10:24:48,993 - INFO - Google Play Books 파트너스 센터로 이동: https://play.google.com/books/publish/u/0/?hl=ko
+2025-09-14 10:24:53,419 - INFO - 현재 URL: https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fplay.google.com%2Fbooks%2Fpublish%2Fredirect&followup=https%3A%2F%2Fplay.google.com%2Fbooks%2Fpublish%2Fredirect&ifkv=AdBytiPZ3ZyUN1WogcsitbaAZaWIs3ohSr_2QXu_OX2yncipra3a3lxcu2k-gDcvuh38KEaB_53AoQ&passive=1209600&service=printpublisher&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S1327459255%3A1757813094402223
+2025-09-14 10:24:53,419 - INFO - ============================================================
+2025-09-14 10:24:53,419 - INFO - 🔐 Google Play Books 파트너스 센터 로그인이 필요합니다.
+2025-09-14 10:24:53,420 - INFO - 📌 브라우저 창에서 다음 단계를 진행해주세요:
+2025-09-14 10:24:53,420 - INFO -    1. Google 계정으로 로그인
+2025-09-14 10:24:53,420 - INFO -    2. 2단계 인증 완료 (필요한 경우)
+2025-09-14 10:24:53,420 - INFO -    3. Google Play Books 파트너스 센터 대시보드가 표시될 때까지 대기
+2025-09-14 10:24:53,420 - INFO - ============================================================
+2025-09-14 10:24:53,436 - INFO - ⏰ 로그인 대기 중... (남은 시간: 300초)
+2025-09-14 10:25:30,837 - INFO - ✅ Google Play Books 파트너스 센터 로그인 완료!
+2025-09-14 10:25:30,838 - INFO - 처리 중 (1/4): 이수정 - [eBook] IT CookBook, 최신 컴퓨터 구조(2판) - sjlee@inhatc.ac.kr
+2025-09-14 10:25:30,841 - INFO - 도서 검색 시작: [eBook] IT CookBook, 최신 컴퓨터 구조(2판)

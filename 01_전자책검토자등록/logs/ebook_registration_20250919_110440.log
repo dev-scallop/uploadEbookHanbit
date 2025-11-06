@@ -1,0 +1,349 @@
+2025-09-19 11:04:40,331 - INFO - 전자책 검토자 자동 등록 시스템 시작
+2025-09-19 11:04:43,225 - INFO - 엑셀 파일 읽기 성공: C:/Users/taejin/Downloads/신규회원 홍보 전자책.xlsx
+2025-09-19 11:04:43,225 - INFO - 총 149개의 행이 발견됨
+2025-09-19 11:04:43,225 - INFO - 엑셀 파일 컬럼: ['접수일', '발송유형', '발송자', '이름', '이메일', '지메일', '휴대전화', '소속학교', '도서코드', '도서명', '처리일', '열람기한', '강의대학', '강의학과', '강의명']
+2025-09-19 11:04:43,227 - INFO - 유효한 데이터: 149개 행
+2025-09-19 11:04:43,230 - INFO - 검토자 데이터 샘플:
+ 이름  도서코드                    지메일
+이설아 41029   1026seolah@gmail.com
+최홍인 41029 12200716@dankook.ac.kr
+박정우 41029     215wjddn@gmail.com
+2025-09-19 11:04:43,230 - INFO - 구글 스프레드시트에서 도서 정보 데이터베이스를 구축합니다...
+2025-09-19 11:04:43,230 - INFO - Google 스프레드시트 URL에서 도서 정보 데이터베이스 읽기 시도: https://docs.google.com/spreadsheets/d/18uXAoTIz07WEBzFgCYC5asaOUkLujYgQtezDsmPWiGY/export?format=csv&gid=0
+2025-09-19 11:04:44,966 - INFO - 스프레드시트 데이터를 UTF-8로 디코딩했습니다.
+2025-09-19 11:04:44,986 - INFO - 스프레드시트 컬럼: ['code', 'title', 'ISBN', 'eISBN', 'publisher', 'g_title', 's_isbn']
+2025-09-19 11:04:45,054 - INFO - 도서 정보 데이터베이스 구축 완료: 총 0개의 도서 정보 로드
+2025-09-19 11:04:45,056 - INFO - 검토자 정보와 도서 데이터베이스 정보를 매핑합니다...
+2025-09-19 11:04:45,059 - INFO - 
+===== 검토자 정보 =====
+2025-09-19 11:04:45,059 - INFO - [1] 도서코드: 41029, 이름: 이설아, 이메일: 1026seolah@gmail.com
+2025-09-19 11:04:45,059 - INFO - [2] 도서코드: 41029, 이름: 최홍인, 이메일: 12200716@dankook.ac.kr
+2025-09-19 11:04:45,060 - INFO - [3] 도서코드: 41029, 이름: 박정우, 이메일: 215wjddn@gmail.com
+2025-09-19 11:04:45,060 - INFO - [4] 도서코드: 41029, 이름: 이수연, 이메일: 500pelle@gmail.com
+2025-09-19 11:04:45,060 - INFO - [5] 도서코드: 41029, 이름: 오아름, 이메일: ahreum@gwnu.ac.kr
+2025-09-19 11:04:45,060 - INFO - ... 외 144건
+2025-09-19 11:04:45,060 - INFO - =====================
+
+2025-09-19 11:04:47,848 - INFO - 도서 데이터베이스 로드 시작...
+2025-09-19 11:04:47,850 - INFO - 구글 스프레드시트에서 도서 데이터베이스 로드 중: https://docs.google.com/spreadsheets/d/18uXAoTIz07WEBzFgCYC5asaOUkLujYgQtezDsmPWiGY/export?format=csv&gid=0
+2025-09-19 11:04:49,360 - INFO - 스프레드시트 로드 성공: 3925행 발견
+2025-09-19 11:04:49,361 - INFO - 컬럼명 변환 결과: ['도서코드', '도서명', 'ISBN', 'eISBN', '출판사', 'g_title', 's_isbn']
+2025-09-19 11:04:49,362 - WARNING - 스프레드시트 컬럼 개수(7)와 기대값(6)이 다릅니다. 실제 컬럼명: ['도서코드', '도서명', 'ISBN', 'eISBN', '출판사', 'g_title', 's_isbn']
+2025-09-19 11:04:49,459 - INFO - 도서 데이터베이스 로드 완료: 3925개 도서
+2025-09-19 11:04:49,460 - INFO - 출판사별 도서 수: {'한빛아카데미': 849, '한빛미디어': 3076}
+2025-09-19 11:04:49,462 - INFO - 웹 드라이버 설정 시작...
+2025-09-19 11:04:49,464 - INFO - Chrome 드라이버 설정 시작...
+2025-09-19 11:04:49,464 - INFO - config.py에서 크롬 브라우저 경로 사용: C:\Program Files\Google\Chrome\Application\chrome.exe
+2025-09-19 11:04:49,464 - INFO - ChromeDriverManager를 사용하여 드라이버 다운로드 중...
+2025-09-19 11:04:49,464 - INFO - ====== WebDriver manager ======
+2025-09-19 11:04:50,026 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-19 11:04:50,275 - INFO - Get LATEST chromedriver version for google-chrome
+2025-09-19 11:04:50,524 - INFO - Driver [C:\Users\taejin\.wdm\drivers\chromedriver\win64\140.0.7339.185\chromedriver-win32/chromedriver.exe] found in cache
+2025-09-19 11:04:50,524 - INFO - 크롬 드라이버 다운로드 성공: C:\Users\taejin\.wdm\drivers\chromedriver\win64\140.0.7339.185\chromedriver-win32/chromedriver.exe
+2025-09-19 11:04:51,577 - INFO - 자동화 감지 방지 스크립트 실행 완료
+2025-09-19 11:04:51,577 - INFO - Chrome 드라이버 설정 완료
+2025-09-19 11:04:51,577 - INFO - Google 로그인 시도...
+2025-09-19 11:04:51,580 - INFO - Google Play Books 파트너스 센터로 이동: https://play.google.com/books/publish/u/0/?hl=ko
+2025-09-19 11:04:55,996 - INFO - 현재 URL: https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fplay.google.com%2Fbooks%2Fpublish%2Fredirect&followup=https%3A%2F%2Fplay.google.com%2Fbooks%2Fpublish%2Fredirect&ifkv=AfYwgwWxdXnPVBnIAtpE7Y7RKqPuirDH6lkimLO46Afm2QrVjk7Hc5ZfxjtU3APn47OSbu-ZlNPYKQ&passive=1209600&service=printpublisher&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-670658716%3A1758247497848355
+2025-09-19 11:04:55,996 - INFO - ============================================================
+2025-09-19 11:04:55,997 - INFO - 🔐 Google Play Books 파트너스 센터 로그인이 필요합니다.
+2025-09-19 11:04:55,997 - INFO - 📌 브라우저 창에서 다음 단계를 진행해주세요:
+2025-09-19 11:04:55,997 - INFO -    1. Google 계정으로 로그인
+2025-09-19 11:04:55,997 - INFO -    2. 2단계 인증 완료 (필요한 경우)
+2025-09-19 11:04:55,997 - INFO -    3. Google Play Books 파트너스 센터 대시보드가 표시될 때까지 대기
+2025-09-19 11:04:55,997 - INFO - ============================================================
+2025-09-19 11:05:21,415 - INFO - ✅ 사용자가 로그인 완료를 확인했습니다.
+2025-09-19 11:05:21,418 - INFO - ====== 출판사 '한빛아카데미' 처리 시작 ======
+2025-09-19 11:05:21,419 - INFO - 도서 '교재)생성형 AI 활용과 실습' (코드: 41029, ISBN: 9791173400292) 처리 시작
+2025-09-19 11:05:21,419 - INFO - 검토자 149명 등록 예정
+2025-09-19 11:05:21,421 - INFO - 도서 검색 시작 - 도서코드: 41029
+2025-09-19 11:05:21,422 - INFO - 도서 정보 - 제목: 교재)생성형 AI 활용과 실습, ISBN: 9791173400292, eISBN: 9791173409738, 출판사: 한빛아카데미
+2025-09-19 11:05:21,422 - INFO - 출판사 '한빛아카데미'의 도서 목록 페이지로 이동: https://play.google.com/books/publish/a/535699340789858766#list?sortby=last_updated&sortdir=desc&publisher=한빛아카데미
+2025-09-19 11:05:23,429 - INFO - 도서 목록 페이지 로드 완료
+2025-09-19 11:05:25,439 - INFO - 페이지 요소 로드 대기 완료
+2025-09-19 11:05:25,440 - INFO - 출판사 선택 드롭다운 클릭 시도... (대상 출판사: 한빛아카데미)
+2025-09-19 11:05:25,528 - INFO - 출판사 선택 드롭다운 열기 성공
+2025-09-19 11:05:27,529 - INFO - 선택할 출판사: 한빛아카데미
+2025-09-19 11:05:29,571 - INFO - 한빛아카데미 출판사 선택 성공
+2025-09-19 11:05:31,572 - INFO - 검색창에 도서명 '생성형 AI 활용과 실습: 챗GPT부터 코파일럿까지 따라 하며 익히는 AI 활용 가이드' 입력 시도...
+2025-09-19 11:05:37,849 - INFO - 도서명 검색 입력 완료
+2025-09-19 11:05:37,850 - INFO - 검색 결과 중 첫 번째 도서 클릭 시도...
+2025-09-19 11:05:37,915 - INFO - 첫 번째 도서 클릭 성공: /html/body/pfe-app/partner-center/div[2]/div/ng-component/ng-component/div/catalog-table/div/table/tbody/tr/td[1]/div/div/a
+2025-09-19 11:05:40,915 - INFO - 도서 '교재)생성형 AI 활용과 실습' (ISBN: 9791173400292) 검색 및 선택 완료
+2025-09-19 11:05:40,916 - INFO - 총 149명의 검토자를 일괄 등록합니다
+2025-09-19 11:05:40,916 - INFO - [1/149] 검토자 '이설아' (이메일: 1026seolah@gmail.com) 등록 시도 중...
+2025-09-19 11:05:40,916 - INFO - 검토자 추가 시작: 1026seolah@gmail.com
+2025-09-19 11:05:40,922 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:05:40,931 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템을 찾았습니다.
+2025-09-19 11:05:41,019 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템 클릭 성공: /html/body/pfe-app/partner-center/div[2]/div/ng-component/ng-component/div/ng-component/div/div[2]/content-review-item[1]/a/div
+2025-09-19 11:05:42,024 - INFO - 이메일 입력 필드에 '1026seolah@gmail.com' 입력 시도...
+2025-09-19 11:05:42,033 - INFO - 이메일 입력 필드 찾음: //*[@id='mat-input-1']
+2025-09-19 11:05:42,136 - INFO - 이메일 입력 완료
+2025-09-19 11:05:43,174 - INFO - Enter 키로 제출 시도
+2025-09-19 11:05:46,175 - INFO - 검토자 '1026seolah@gmail.com' 추가 시도 완료
+2025-09-19 11:05:46,175 - INFO - 검토자 '1026seolah@gmail.com' 등록 확인 시작...
+2025-09-19 11:05:47,814 - INFO - ✅ 검토자 '1026seolah@gmail.com' 성공적으로 등록 확인!
+2025-09-19 11:05:47,814 - INFO - ✅ 검토자 '1026seolah@gmail.com' 등록 확인 완료!
+2025-09-19 11:05:47,814 - INFO - ✅ [1/149] 검토자 '이설아' (이메일: 1026seolah@gmail.com) 등록 성공
+2025-09-19 11:05:48,315 - INFO - [2/149] 검토자 '최홍인' (이메일: 12200716@dankook.ac.kr) 등록 시도 중...
+2025-09-19 11:05:48,316 - INFO - 검토자 추가 시작: 12200716@dankook.ac.kr
+2025-09-19 11:05:48,320 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:05:48,326 - WARNING - 사용자 지정 XPath로 요소를 찾을 수 없습니다. 대체 셀렉터를 시도합니다.
+2025-09-19 11:05:48,388 - INFO - 대체 셀렉터로 콘텐츠 검토 아이템 클릭 성공: //a[contains(@href, 'review')]
+2025-09-19 11:05:49,393 - INFO - 이메일 입력 필드에 '12200716@dankook.ac.kr' 입력 시도...
+2025-09-19 11:05:49,421 - ERROR - 이메일 입력 필드를 찾을 수 없습니다
+2025-09-19 11:05:49,421 - WARNING - ❌ [2/149] 검토자 '최홍인' (이메일: 12200716@dankook.ac.kr) 등록 실패
+2025-09-19 11:05:49,922 - INFO - [3/149] 검토자 '박정우' (이메일: 215wjddn@gmail.com) 등록 시도 중...
+2025-09-19 11:05:49,923 - INFO - 검토자 추가 시작: 215wjddn@gmail.com
+2025-09-19 11:05:49,930 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:05:49,942 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템을 찾았습니다.
+2025-09-19 11:05:50,017 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템 클릭 성공: /html/body/pfe-app/partner-center/div[2]/div/ng-component/ng-component/div/ng-component/div/div[2]/content-review-item[1]/a/div
+2025-09-19 11:05:51,029 - INFO - 이메일 입력 필드에 '215wjddn@gmail.com' 입력 시도...
+2025-09-19 11:05:51,074 - INFO - 이메일 입력 필드 찾음: //mat-form-field//input
+2025-09-19 11:05:51,136 - INFO - 이메일 입력 완료
+2025-09-19 11:05:52,160 - INFO - Enter 키로 제출 시도
+2025-09-19 11:05:55,172 - INFO - 검토자 '215wjddn@gmail.com' 추가 시도 완료
+2025-09-19 11:05:55,172 - INFO - 검토자 '215wjddn@gmail.com' 등록 확인 시작...
+2025-09-19 11:05:56,815 - WARNING - ⚠️ 검토자 '215wjddn@gmail.com' 등록이 확인되지 않음. 등록이 실패했거나 화면에 표시되지 않았을 수 있습니다.
+2025-09-19 11:05:57,001 - INFO - 검토자 미확인 상황 스크린샷 저장: reviewer_not_found_20250919_110556.png
+2025-09-19 11:05:57,001 - WARNING - ⚠️ 검토자 '215wjddn@gmail.com' 등록되었지만 확인되지 않았습니다. 상태를 확인하세요.
+2025-09-19 11:05:57,001 - INFO - ✅ [3/149] 검토자 '박정우' (이메일: 215wjddn@gmail.com) 등록 성공
+2025-09-19 11:05:57,502 - INFO - [4/149] 검토자 '이수연' (이메일: 500pelle@gmail.com) 등록 시도 중...
+2025-09-19 11:05:57,503 - INFO - 검토자 추가 시작: 500pelle@gmail.com
+2025-09-19 11:05:57,506 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:05:57,512 - WARNING - 사용자 지정 XPath로 요소를 찾을 수 없습니다. 대체 셀렉터를 시도합니다.
+2025-09-19 11:05:57,633 - INFO - 대체 셀렉터로 콘텐츠 검토 아이템 클릭 성공: //a[contains(@href, 'review')]
+2025-09-19 11:05:58,637 - INFO - 이메일 입력 필드에 '500pelle@gmail.com' 입력 시도...
+2025-09-19 11:05:58,674 - ERROR - 이메일 입력 필드를 찾을 수 없습니다
+2025-09-19 11:05:58,674 - WARNING - ❌ [4/149] 검토자 '이수연' (이메일: 500pelle@gmail.com) 등록 실패
+2025-09-19 11:05:59,174 - INFO - [5/149] 검토자 '오아름' (이메일: ahreum@gwnu.ac.kr) 등록 시도 중...
+2025-09-19 11:05:59,175 - INFO - 검토자 추가 시작: ahreum@gwnu.ac.kr
+2025-09-19 11:05:59,180 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:05:59,187 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템을 찾았습니다.
+2025-09-19 11:05:59,277 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템 클릭 성공: /html/body/pfe-app/partner-center/div[2]/div/ng-component/ng-component/div/ng-component/div/div[2]/content-review-item[1]/a/div
+2025-09-19 11:06:00,281 - INFO - 이메일 입력 필드에 'ahreum@gwnu.ac.kr' 입력 시도...
+2025-09-19 11:06:00,302 - INFO - 이메일 입력 필드 찾음: //mat-form-field//input
+2025-09-19 11:06:00,370 - INFO - 이메일 입력 완료
+2025-09-19 11:06:01,393 - INFO - Enter 키로 제출 시도
+2025-09-19 11:06:04,394 - INFO - 검토자 'ahreum@gwnu.ac.kr' 추가 시도 완료
+2025-09-19 11:06:04,395 - INFO - 검토자 'ahreum@gwnu.ac.kr' 등록 확인 시작...
+2025-09-19 11:06:06,042 - WARNING - ⚠️ 검토자 'ahreum@gwnu.ac.kr' 등록이 확인되지 않음. 등록이 실패했거나 화면에 표시되지 않았을 수 있습니다.
+2025-09-19 11:06:06,177 - INFO - 검토자 미확인 상황 스크린샷 저장: reviewer_not_found_20250919_110606.png
+2025-09-19 11:06:06,177 - WARNING - ⚠️ 검토자 'ahreum@gwnu.ac.kr' 등록되었지만 확인되지 않았습니다. 상태를 확인하세요.
+2025-09-19 11:06:06,177 - INFO - ✅ [5/149] 검토자 '오아름' (이메일: ahreum@gwnu.ac.kr) 등록 성공
+2025-09-19 11:06:06,678 - INFO - [6/149] 검토자 '김기종' (이메일: alex.kim1597@gmail.com) 등록 시도 중...
+2025-09-19 11:06:06,679 - INFO - 검토자 추가 시작: alex.kim1597@gmail.com
+2025-09-19 11:06:06,692 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:06:06,702 - WARNING - 사용자 지정 XPath로 요소를 찾을 수 없습니다. 대체 셀렉터를 시도합니다.
+2025-09-19 11:06:06,762 - INFO - 대체 셀렉터로 콘텐츠 검토 아이템 클릭 성공: //a[contains(@href, 'review')]
+2025-09-19 11:06:07,767 - INFO - 이메일 입력 필드에 'alex.kim1597@gmail.com' 입력 시도...
+2025-09-19 11:06:07,787 - ERROR - 이메일 입력 필드를 찾을 수 없습니다
+2025-09-19 11:06:07,788 - WARNING - ❌ [6/149] 검토자 '김기종' (이메일: alex.kim1597@gmail.com) 등록 실패
+2025-09-19 11:06:08,288 - INFO - [7/149] 검토자 '안지언' (이메일: anjiunful@gmail.com) 등록 시도 중...
+2025-09-19 11:06:08,288 - INFO - 검토자 추가 시작: anjiunful@gmail.com
+2025-09-19 11:06:08,292 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:06:08,297 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템을 찾았습니다.
+2025-09-19 11:06:08,367 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템 클릭 성공: /html/body/pfe-app/partner-center/div[2]/div/ng-component/ng-component/div/ng-component/div/div[2]/content-review-item[1]/a/div
+2025-09-19 11:06:09,375 - INFO - 이메일 입력 필드에 'anjiunful@gmail.com' 입력 시도...
+2025-09-19 11:06:09,396 - INFO - 이메일 입력 필드 찾음: //mat-form-field//input
+2025-09-19 11:06:09,467 - INFO - 이메일 입력 완료
+2025-09-19 11:06:10,496 - INFO - Enter 키로 제출 시도
+2025-09-19 11:06:13,497 - INFO - 검토자 'anjiunful@gmail.com' 추가 시도 완료
+2025-09-19 11:06:13,497 - INFO - 검토자 'anjiunful@gmail.com' 등록 확인 시작...
+2025-09-19 11:06:15,154 - WARNING - ⚠️ 검토자 'anjiunful@gmail.com' 등록이 확인되지 않음. 등록이 실패했거나 화면에 표시되지 않았을 수 있습니다.
+2025-09-19 11:06:15,300 - INFO - 검토자 미확인 상황 스크린샷 저장: reviewer_not_found_20250919_110615.png
+2025-09-19 11:06:15,300 - WARNING - ⚠️ 검토자 'anjiunful@gmail.com' 등록되었지만 확인되지 않았습니다. 상태를 확인하세요.
+2025-09-19 11:06:15,301 - INFO - ✅ [7/149] 검토자 '안지언' (이메일: anjiunful@gmail.com) 등록 성공
+2025-09-19 11:06:15,801 - INFO - [8/149] 검토자 '현대준' (이메일: ars0130@gmail.com) 등록 시도 중...
+2025-09-19 11:06:15,803 - INFO - 검토자 추가 시작: ars0130@gmail.com
+2025-09-19 11:06:15,823 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:06:15,836 - WARNING - 사용자 지정 XPath로 요소를 찾을 수 없습니다. 대체 셀렉터를 시도합니다.
+2025-09-19 11:06:15,904 - INFO - 대체 셀렉터로 콘텐츠 검토 아이템 클릭 성공: //a[contains(@href, 'review')]
+2025-09-19 11:06:16,912 - INFO - 이메일 입력 필드에 'ars0130@gmail.com' 입력 시도...
+2025-09-19 11:06:16,939 - ERROR - 이메일 입력 필드를 찾을 수 없습니다
+2025-09-19 11:06:16,939 - WARNING - ❌ [8/149] 검토자 '현대준' (이메일: ars0130@gmail.com) 등록 실패
+2025-09-19 11:06:17,439 - INFO - [9/149] 검토자 '백창원' (이메일: baekcw@gmail.com) 등록 시도 중...
+2025-09-19 11:06:17,440 - INFO - 검토자 추가 시작: baekcw@gmail.com
+2025-09-19 11:06:17,444 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:06:17,450 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템을 찾았습니다.
+2025-09-19 11:06:17,520 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템 클릭 성공: /html/body/pfe-app/partner-center/div[2]/div/ng-component/ng-component/div/ng-component/div/div[2]/content-review-item[1]/a/div
+2025-09-19 11:06:18,528 - INFO - 이메일 입력 필드에 'baekcw@gmail.com' 입력 시도...
+2025-09-19 11:06:18,559 - INFO - 이메일 입력 필드 찾음: //mat-form-field//input
+2025-09-19 11:06:18,618 - INFO - 이메일 입력 완료
+2025-09-19 11:06:19,655 - INFO - Enter 키로 제출 시도
+2025-09-19 11:06:22,657 - INFO - 검토자 'baekcw@gmail.com' 추가 시도 완료
+2025-09-19 11:06:22,658 - INFO - 검토자 'baekcw@gmail.com' 등록 확인 시작...
+2025-09-19 11:06:24,292 - WARNING - ⚠️ 검토자 'baekcw@gmail.com' 등록이 확인되지 않음. 등록이 실패했거나 화면에 표시되지 않았을 수 있습니다.
+2025-09-19 11:06:24,425 - INFO - 검토자 미확인 상황 스크린샷 저장: reviewer_not_found_20250919_110624.png
+2025-09-19 11:06:24,425 - WARNING - ⚠️ 검토자 'baekcw@gmail.com' 등록되었지만 확인되지 않았습니다. 상태를 확인하세요.
+2025-09-19 11:06:24,425 - INFO - ✅ [9/149] 검토자 '백창원' (이메일: baekcw@gmail.com) 등록 성공
+2025-09-19 11:06:24,926 - INFO - [10/149] 검토자 '박순찬' (이메일: bcarpediemer@gmail.com) 등록 시도 중...
+2025-09-19 11:06:24,926 - INFO - 검토자 추가 시작: bcarpediemer@gmail.com
+2025-09-19 11:06:24,935 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:06:24,943 - WARNING - 사용자 지정 XPath로 요소를 찾을 수 없습니다. 대체 셀렉터를 시도합니다.
+2025-09-19 11:06:25,008 - INFO - 대체 셀렉터로 콘텐츠 검토 아이템 클릭 성공: //a[contains(@href, 'review')]
+2025-09-19 11:06:26,013 - INFO - 이메일 입력 필드에 'bcarpediemer@gmail.com' 입력 시도...
+2025-09-19 11:06:26,039 - ERROR - 이메일 입력 필드를 찾을 수 없습니다
+2025-09-19 11:06:26,039 - WARNING - ❌ [10/149] 검토자 '박순찬' (이메일: bcarpediemer@gmail.com) 등록 실패
+2025-09-19 11:06:26,540 - INFO - [11/149] 검토자 '최이선' (이메일: biicii5210@gmail.com) 등록 시도 중...
+2025-09-19 11:06:26,540 - INFO - 검토자 추가 시작: biicii5210@gmail.com
+2025-09-19 11:06:26,543 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:06:26,549 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템을 찾았습니다.
+2025-09-19 11:06:27,635 - WARNING - 사용자 지정 XPath 시도 실패: Message: element click intercepted: Element <div _ngcontent-ng-c463653151="" class="content">...</div> is not clickable at point (583, 977). Other element would receive the click: <span class="mdc-button__label">...</span>
+  (Session info: chrome=140.0.7339.128); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#elementclickinterceptedexception
+Stacktrace:
+	GetHandleVerifier [0x0x1140c13+66051]
+	GetHandleVerifier [0x0x1140c54+66116]
+	(No symbol) [0x0xf1db33]
+	(No symbol) [0x0xf6dd90]
+	(No symbol) [0x0xf6c0f3]
+	(No symbol) [0x0xf69ba7]
+	(No symbol) [0x0xf68e2d]
+	(No symbol) [0x0xf5d335]
+	(No symbol) [0x0xf89f8c]
+	(No symbol) [0x0xf5cd94]
+	(No symbol) [0x0xf8a144]
+	(No symbol) [0x0xfab7f1]
+	(No symbol) [0x0xf89d86]
+	(No symbol) [0x0xf5b53e]
+	(No symbol) [0x0xf5c414]
+	GetHandleVerifier [0x0x1388a13+2457603]
+	GetHandleVerifier [0x0x13839d2+2437058]
+	GetHandleVerifier [0x0x11697f2+232930]
+	GetHandleVerifier [0x0x1159a18+167944]
+	GetHandleVerifier [0x0x116092d+196381]
+	GetHandleVerifier [0x0x1148ee8+99544]
+	GetHandleVerifier [0x0x1149082+99954]
+	GetHandleVerifier [0x0x113322a+10266]
+	timeGetTime [0x0x75af8708+728232]
+	timeGetTime [0x0x75a4e81c+32188]
+	fltused [0x0x7749fc4c+525064]
+	fltused [0x0x7749fba8+524900]
+	fltused [0x0x7757968c+1416520]
+. 대체 셀렉터를 시도합니다.
+2025-09-19 11:06:27,675 - INFO - 대체 셀렉터로 콘텐츠 검토 아이템 클릭 성공: //a[contains(@href, 'review')]
+2025-09-19 11:06:28,692 - INFO - 이메일 입력 필드에 'biicii5210@gmail.com' 입력 시도...
+2025-09-19 11:06:28,722 - ERROR - 이메일 입력 필드를 찾을 수 없습니다
+2025-09-19 11:06:28,722 - WARNING - ❌ [11/149] 검토자 '최이선' (이메일: biicii5210@gmail.com) 등록 실패
+2025-09-19 11:06:29,222 - INFO - [12/149] 검토자 '김백기' (이메일: bkkim@gwnu.ac.kr) 등록 시도 중...
+2025-09-19 11:06:29,223 - INFO - 검토자 추가 시작: bkkim@gwnu.ac.kr
+2025-09-19 11:06:29,232 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:06:29,239 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템을 찾았습니다.
+2025-09-19 11:06:29,311 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템 클릭 성공: /html/body/pfe-app/partner-center/div[2]/div/ng-component/ng-component/div/ng-component/div/div[2]/content-review-item[1]/a/div
+2025-09-19 11:06:30,318 - INFO - 이메일 입력 필드에 'bkkim@gwnu.ac.kr' 입력 시도...
+2025-09-19 11:06:30,339 - INFO - 이메일 입력 필드 찾음: //mat-form-field//input
+2025-09-19 11:06:30,406 - INFO - 이메일 입력 완료
+2025-09-19 11:06:31,437 - INFO - Enter 키로 제출 시도
+2025-09-19 11:06:34,439 - INFO - 검토자 'bkkim@gwnu.ac.kr' 추가 시도 완료
+2025-09-19 11:06:34,439 - INFO - 검토자 'bkkim@gwnu.ac.kr' 등록 확인 시작...
+2025-09-19 11:06:36,078 - WARNING - ⚠️ 검토자 'bkkim@gwnu.ac.kr' 등록이 확인되지 않음. 등록이 실패했거나 화면에 표시되지 않았을 수 있습니다.
+2025-09-19 11:06:36,284 - INFO - 검토자 미확인 상황 스크린샷 저장: reviewer_not_found_20250919_110636.png
+2025-09-19 11:06:36,284 - WARNING - ⚠️ 검토자 'bkkim@gwnu.ac.kr' 등록되었지만 확인되지 않았습니다. 상태를 확인하세요.
+2025-09-19 11:06:36,284 - INFO - ✅ [12/149] 검토자 '김백기' (이메일: bkkim@gwnu.ac.kr) 등록 성공
+2025-09-19 11:06:36,785 - INFO - [13/149] 검토자 '송재혁' (이메일: blue2524@gmail.com) 등록 시도 중...
+2025-09-19 11:06:36,786 - INFO - 검토자 추가 시작: blue2524@gmail.com
+2025-09-19 11:06:36,793 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:06:36,802 - WARNING - 사용자 지정 XPath로 요소를 찾을 수 없습니다. 대체 셀렉터를 시도합니다.
+2025-09-19 11:06:36,860 - INFO - 대체 셀렉터로 콘텐츠 검토 아이템 클릭 성공: //a[contains(@href, 'review')]
+2025-09-19 11:06:37,866 - INFO - 이메일 입력 필드에 'blue2524@gmail.com' 입력 시도...
+2025-09-19 11:06:37,891 - ERROR - 이메일 입력 필드를 찾을 수 없습니다
+2025-09-19 11:06:37,892 - WARNING - ❌ [13/149] 검토자 '송재혁' (이메일: blue2524@gmail.com) 등록 실패
+2025-09-19 11:06:38,392 - INFO - [14/149] 검토자 '김봉균' (이메일: bongkyun2@gmail.com) 등록 시도 중...
+2025-09-19 11:06:38,392 - INFO - 검토자 추가 시작: bongkyun2@gmail.com
+2025-09-19 11:06:38,396 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:06:38,403 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템을 찾았습니다.
+2025-09-19 11:06:39,451 - WARNING - 사용자 지정 XPath 시도 실패: Message: element click intercepted: Element <div _ngcontent-ng-c463653151="" class="content">...</div> is not clickable at point (583, 977). Other element would receive the click: <span class="mdc-button__label">...</span>
+  (Session info: chrome=140.0.7339.128); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#elementclickinterceptedexception
+Stacktrace:
+	GetHandleVerifier [0x0x1140c13+66051]
+	GetHandleVerifier [0x0x1140c54+66116]
+	(No symbol) [0x0xf1db33]
+	(No symbol) [0x0xf6dd90]
+	(No symbol) [0x0xf6c0f3]
+	(No symbol) [0x0xf69ba7]
+	(No symbol) [0x0xf68e2d]
+	(No symbol) [0x0xf5d335]
+	(No symbol) [0x0xf89f8c]
+	(No symbol) [0x0xf5cd94]
+	(No symbol) [0x0xf8a144]
+	(No symbol) [0x0xfab7f1]
+	(No symbol) [0x0xf89d86]
+	(No symbol) [0x0xf5b53e]
+	(No symbol) [0x0xf5c414]
+	GetHandleVerifier [0x0x1388a13+2457603]
+	GetHandleVerifier [0x0x13839d2+2437058]
+	GetHandleVerifier [0x0x11697f2+232930]
+	GetHandleVerifier [0x0x1159a18+167944]
+	GetHandleVerifier [0x0x116092d+196381]
+	GetHandleVerifier [0x0x1148ee8+99544]
+	GetHandleVerifier [0x0x1149082+99954]
+	GetHandleVerifier [0x0x113322a+10266]
+	timeGetTime [0x0x75af8708+728232]
+	timeGetTime [0x0x75a4e81c+32188]
+	fltused [0x0x7749fc4c+525064]
+	fltused [0x0x7749fba8+524900]
+	fltused [0x0x7757968c+1416520]
+. 대체 셀렉터를 시도합니다.
+2025-09-19 11:06:39,493 - INFO - 대체 셀렉터로 콘텐츠 검토 아이템 클릭 성공: //a[contains(@href, 'review')]
+2025-09-19 11:06:40,496 - INFO - 이메일 입력 필드에 'bongkyun2@gmail.com' 입력 시도...
+2025-09-19 11:06:40,523 - ERROR - 이메일 입력 필드를 찾을 수 없습니다
+2025-09-19 11:06:40,523 - WARNING - ❌ [14/149] 검토자 '김봉균' (이메일: bongkyun2@gmail.com) 등록 실패
+2025-09-19 11:06:41,024 - INFO - [15/149] 검토자 '편제범' (이메일: bumy1228@gmail.com) 등록 시도 중...
+2025-09-19 11:06:41,024 - INFO - 검토자 추가 시작: bumy1228@gmail.com
+2025-09-19 11:06:41,027 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:06:41,032 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템을 찾았습니다.
+2025-09-19 11:06:42,117 - WARNING - 사용자 지정 XPath 시도 실패: Message: element click intercepted: Element <div _ngcontent-ng-c463653151="" class="content">...</div> is not clickable at point (583, 977). Other element would receive the click: <span class="mdc-button__label">...</span>
+  (Session info: chrome=140.0.7339.128); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#elementclickinterceptedexception
+Stacktrace:
+	GetHandleVerifier [0x0x1140c13+66051]
+	GetHandleVerifier [0x0x1140c54+66116]
+	(No symbol) [0x0xf1db33]
+	(No symbol) [0x0xf6dd90]
+	(No symbol) [0x0xf6c0f3]
+	(No symbol) [0x0xf69ba7]
+	(No symbol) [0x0xf68e2d]
+	(No symbol) [0x0xf5d335]
+	(No symbol) [0x0xf89f8c]
+	(No symbol) [0x0xf5cd94]
+	(No symbol) [0x0xf8a144]
+	(No symbol) [0x0xfab7f1]
+	(No symbol) [0x0xf89d86]
+	(No symbol) [0x0xf5b53e]
+	(No symbol) [0x0xf5c414]
+	GetHandleVerifier [0x0x1388a13+2457603]
+	GetHandleVerifier [0x0x13839d2+2437058]
+	GetHandleVerifier [0x0x11697f2+232930]
+	GetHandleVerifier [0x0x1159a18+167944]
+	GetHandleVerifier [0x0x116092d+196381]
+	GetHandleVerifier [0x0x1148ee8+99544]
+	GetHandleVerifier [0x0x1149082+99954]
+	GetHandleVerifier [0x0x113322a+10266]
+	timeGetTime [0x0x75af8708+728232]
+	timeGetTime [0x0x75a4e81c+32188]
+	fltused [0x0x7749fc4c+525064]
+	fltused [0x0x7749fba8+524900]
+	fltused [0x0x7757968c+1416520]
+. 대체 셀렉터를 시도합니다.
+2025-09-19 11:06:42,165 - INFO - 대체 셀렉터로 콘텐츠 검토 아이템 클릭 성공: //a[contains(@href, 'review')]
+2025-09-19 11:06:43,170 - INFO - 이메일 입력 필드에 'bumy1228@gmail.com' 입력 시도...
+2025-09-19 11:06:43,198 - ERROR - 이메일 입력 필드를 찾을 수 없습니다
+2025-09-19 11:06:43,198 - WARNING - ❌ [15/149] 검토자 '편제범' (이메일: bumy1228@gmail.com) 등록 실패
+2025-09-19 11:06:43,699 - INFO - [16/149] 검토자 '차정은' (이메일: chaje1002@tukorea.ac.kr) 등록 시도 중...
+2025-09-19 11:06:43,699 - INFO - 검토자 추가 시작: chaje1002@tukorea.ac.kr
+2025-09-19 11:06:43,703 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:06:43,710 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템을 찾았습니다.
+2025-09-19 11:06:43,783 - INFO - 사용자 지정 XPath로 콘텐츠 검토 아이템 클릭 성공: /html/body/pfe-app/partner-center/div[2]/div/ng-component/ng-component/div/ng-component/div/div[2]/content-review-item[1]/a/div
+2025-09-19 11:06:44,800 - INFO - 이메일 입력 필드에 'chaje1002@tukorea.ac.kr' 입력 시도...
+2025-09-19 11:06:44,823 - INFO - 이메일 입력 필드 찾음: //mat-form-field//input
+2025-09-19 11:06:44,893 - INFO - 이메일 입력 완료
+2025-09-19 11:06:45,924 - INFO - Enter 키로 제출 시도
+2025-09-19 11:06:48,924 - INFO - 검토자 'chaje1002@tukorea.ac.kr' 추가 시도 완료
+2025-09-19 11:06:48,925 - INFO - 검토자 'chaje1002@tukorea.ac.kr' 등록 확인 시작...
+2025-09-19 11:06:50,534 - INFO - ✅ 검토자 'chaje1002@tukorea.ac.kr' 성공적으로 등록 확인!
+2025-09-19 11:06:50,535 - INFO - ✅ 검토자 'chaje1002@tukorea.ac.kr' 등록 확인 완료!
+2025-09-19 11:06:50,535 - INFO - ✅ [16/149] 검토자 '차정은' (이메일: chaje1002@tukorea.ac.kr) 등록 성공
+2025-09-19 11:06:51,035 - INFO - [17/149] 검토자 '이찬근' (이메일: changun@gmail.com) 등록 시도 중...
+2025-09-19 11:06:51,036 - INFO - 검토자 추가 시작: changun@gmail.com
+2025-09-19 11:06:51,040 - INFO - 콘텐츠 검토 아이템 클릭 시도...
+2025-09-19 11:06:51,048 - WARNING - 사용자 지정 XPath로 요소를 찾을 수 없습니다. 대체 셀렉터를 시도합니다.
+2025-09-19 11:06:51,109 - INFO - 대체 셀렉터로 콘텐츠 검토 아이템 클릭 성공: //a[contains(@href, 'review')]
