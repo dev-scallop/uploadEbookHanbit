@@ -1,0 +1,6 @@
+2025/11/02-19:40:45.236 7558 Reusing MANIFEST c:\Users\taejin\Desktop\OneDrive\1_코드\99_기타\.uc_profile\Default\Local Storage\leveldb/MANIFEST-000001
+2025/11/02-19:40:45.242 7558 Recovering log #4
+2025/11/02-19:40:45.245 7558 Reusing old log c:\Users\taejin\Desktop\OneDrive\1_코드\99_기타\.uc_profile\Default\Local Storage\leveldb/000004.log 
+2025/11/02-22:48:39.814 4f48 Level-0 table #8: started
+2025/11/02-22:48:39.820 4f48 Level-0 table #8: 9467 bytes OK
+2025/11/02-22:48:39.821 4f48 Delete type=0 #4

@@ -1,0 +1,47 @@
+{
+   "checksum": "a11795d865357b5a303045d5e73d2d23",
+   "roots": {
+      "bookmark_bar": {
+         "children": [  ],
+         "date_added": "13406547934891159",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "북마크바",
+         "type": "folder"
+      },
+      "other": {
+         "children": [ {
+            "date_added": "13406550146535987",
+            "date_last_used": "0",
+            "guid": "98ab95fa-1570-4cc4-9e73-7cf700a2b818",
+            "id": "5",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "쿠팡! | 장바구니",
+            "type": "url",
+            "url": "https://cart.coupang.com/cartView.pang?traceId=mhhhktga"
+         } ],
+         "date_added": "13406547934891159",
+         "date_last_used": "0",
+         "date_modified": "13406550146535987",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "기타 북마크",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13406547934891159",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "모바일 북마크",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}
