@@ -1,0 +1,12 @@
+{
+  "maxFileSizeMB": 20,
+  "maxPages": 500,
+  "minPages": 1,
+  "pageSize": {
+    "widthMm": 148,
+    "heightMm": 210,
+    "toleranceMm": 5
+  },
+  "requireMetadata": ["Title", "Author"],
+  "disallowEncrypted": true
+}

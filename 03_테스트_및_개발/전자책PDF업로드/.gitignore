@@ -1,0 +1,8 @@
+# Local ignores for this app
+node_modules/
+.next/
+.vercel/
+.env*
+.DS_Store
+npm-debug.log*
+yarn-error.log*
