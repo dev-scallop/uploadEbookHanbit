@@ -1,5 +1,0 @@
-2025-09-16 10:32:34,603 - INFO - 전자책 검토자 자동 등록 시스템 시작
-2025-09-16 10:32:38,558 - INFO - Google 스프레드시트 URL에서 데이터 읽기 시도: https://docs.google.com/spreadsheets/d/1i_3h_p_7Y_O6d-i-p_qW-zX_yV-r_tU_sA/export?format=csv&gid=0
-2025-09-16 10:32:39,110 - ERROR - Google 스프레드시트 URL에 접근할 수 없습니다: 404 Client Error: Not Found for url: https://docs.google.com/spreadsheets/d/1i_3h_p_7Y_O6d-i-p_qW-zX_yV-r_tU_sA/export?format=csv&gid=0
-2025-09-16 10:32:39,110 - ERROR - 1. URL이 정확한지 확인하세요.
-2025-09-16 10:32:39,110 - ERROR - 2. 스프레드시트가 '링크가 있는 모든 사용자에게 공개'로 설정되었는지 확인하세요.
