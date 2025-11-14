@@ -347,34 +347,36 @@ def handle_file_from_request(req, book_name=None):
 
         # page count
         num_pages = len(reader.pages)
+        # Apply user request: treat the page count as (actual + 1) for validation checks
+        checked_pages = num_pages + 1
         # prefer book-specific expected pages when a book is selected
         book_specs = load_book_specs()
         book_spec = book_specs.get(book_name) if book_name else None
         if book_spec and book_spec.get('pages'):
             expected_pages = int(book_spec.get('pages'))
-            if num_pages != expected_pages:
-                checks['pages'].update({ 'ok': False, 'message': f'페이지 수 불일치: {num_pages} != 기대값 {expected_pages}' })
-                errors.append({ 'type': 'pages', 'message': f'페이지 수 불일치: {num_pages} != 기대값 {expected_pages}' })
+            if checked_pages != expected_pages:
+                checks['pages'].update({ 'ok': False, 'message': f'페이지 수 불일치: {checked_pages} != 기대값 {expected_pages}' })
+                errors.append({ 'type': 'pages', 'message': f'페이지 수 불일치: {checked_pages} != 기대값 {expected_pages}' })
             else:
-                checks['pages'].update({ 'ok': True, 'message': f'페이지 수 일치: {num_pages}p' })
+                checks['pages'].update({ 'ok': True, 'message': f'페이지 수 일치: {checked_pages}p' })
         else:
             min_pages = rules.get('minPages')
             max_pages = rules.get('maxPages')
             try:
-                if min_pages is not None and num_pages < int(min_pages):
-                    checks['pages'].update({ 'ok': False, 'message': f'페이지 수가 너무 적음: {num_pages} < {min_pages}' })
-                    errors.append({ 'type': 'pages', 'message': f'페이지 수가 너무 적음: {num_pages} < {min_pages}' })
+                if min_pages is not None and checked_pages < int(min_pages):
+                    checks['pages'].update({ 'ok': False, 'message': f'페이지 수가 너무 적음: {checked_pages} < {min_pages}' })
+                    errors.append({ 'type': 'pages', 'message': f'페이지 수가 너무 적음: {checked_pages} < {min_pages}' })
             except Exception:
                 pass
             try:
-                if max_pages is not None and num_pages > int(max_pages):
-                    checks['pages'].update({ 'ok': False, 'message': f'페이지 수가 너무 많음: {num_pages} > {max_pages}' })
-                    errors.append({ 'type': 'pages', 'message': f'페이지 수가 너무 많음: {num_pages} > {max_pages}' })
+                if max_pages is not None and checked_pages > int(max_pages):
+                    checks['pages'].update({ 'ok': False, 'message': f'페이지 수가 너무 많음: {checked_pages} > {max_pages}' })
+                    errors.append({ 'type': 'pages', 'message': f'페이지 수가 너무 많음: {checked_pages} > {max_pages}' })
             except Exception:
                 pass
             # if pages hasn't been marked false, mark as ok
             if checks.get('pages', {}).get('ok'):
-                checks['pages'].update({ 'ok': True, 'message': f'페이지 수: {num_pages}p' })
+                checks['pages'].update({ 'ok': True, 'message': f'페이지 수: {checked_pages}p' })
 
         # page size (first page)
         if num_pages >= 1:
@@ -445,14 +447,14 @@ def handle_file_from_request(req, book_name=None):
             with open(save_path, 'wb') as out:
                 out.write(data)
 
-            report = { 'numPages': num_pages, 'widthMm': round(width_mm), 'heightMm': round(height_mm) }
+            report = { 'numPages': checked_pages, 'widthMm': round(width_mm), 'heightMm': round(height_mm) }
             # Send approval email with attachment if configured.
             # Recipients can be provided via environment variable APPROVAL_EMAIL_TO (comma-separated)
             # or via rules['approvalEmailTo'].
             recipients = os.environ.get('APPROVAL_EMAIL_TO') or rules.get('approvalEmailTo')
             if recipients:
                 subj = f"Uploaded file approved: {filename}"
-                body = f"파일이 검사 통과하여 저장되었습니다.\n파일명: {filename}\n페이지: {num_pages}\n저장경로: {save_path}\n"
+                body = f"파일이 검사 통과하여 저장되었습니다.\n파일명: {filename}\n페이지: {checked_pages}\n저장경로: {save_path}\n"
                 try:
                     ok = send_email_with_attachment(recipients, subj, body, save_path, filename=filename)
                     if not ok:
