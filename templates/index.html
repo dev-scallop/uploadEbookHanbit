@@ -107,6 +107,12 @@
         transition: border-color 0.2s ease, background 0.2s ease;
       }
 
+  /* progress bar */
+  .progress-wrap { margin-top: 12px; display: none; }
+  .progress { height: 12px; background: #e6eefc; border-radius: 999px; overflow: hidden; }
+  .progress > .bar { height: 100%; width: 0%; background: linear-gradient(90deg,var(--brand),var(--brand-dark)); transition: width 0.2s ease; }
+  .progress .label { margin-top:6px; font-size:0.9rem; color:var(--muted); }
+
       .file-field:hover {
         border-color: var(--brand);
         background: rgba(37, 99, 235, 0.12);
@@ -253,7 +259,7 @@
       </header>
 
       <section class="card upload-card">
-        <form action="/upload" method="post" enctype="multipart/form-data">
+  <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
           <label class="field-label" for="book-search">원 도서 검색 및 선택</label>
           <input id="book-search" type="text" placeholder="도서명을 입력해 검색하세요" style="padding:10px;border-radius:8px;border:1px solid #ddd;width:100%;">
           <select id="book-select" name="book_name" required style="margin-top:8px;padding:10px;border-radius:8px;border:1px solid #ddd;width:100%;">
@@ -271,6 +277,10 @@
           <p class="hint">PDF 한 개만 업로드할 수 있으며 서버에서 즉시 저장/검증됩니다.</p>
           <button type="submit" class="primary">검사 시작</button>
         </form>
+        <div class="progress-wrap" id="progress-wrap">
+          <div class="progress" id="progress"><div class="bar" id="progress-bar"></div></div>
+          <div class="label" id="progress-label"></div>
+        </div>
         <script>
           (function(){
             const search = document.getElementById('book-search');
@@ -297,6 +307,65 @@
               const w = opt.dataset.width; const h = opt.dataset.height; const p = opt.dataset.pages;
               let txt = '선택: ' + v + (p?(' — 페이지: '+p):'') + (w && h?(' — 크기: '+w+'x'+h+' mm'):'');
               info.style.display='block'; info.textContent = txt;
+            });
+            // AJAX upload with progress
+            const form = document.getElementById('upload-form');
+            const progressWrap = document.getElementById('progress-wrap');
+            const progressBar = document.getElementById('progress-bar');
+            const progressLabel = document.getElementById('progress-label');
+            form.addEventListener('submit', function(ev){
+              ev.preventDefault();
+              const fd = new FormData(form);
+              const xhr = new XMLHttpRequest();
+              xhr.open('POST', form.action, true);
+
+              progressWrap.style.display = 'block';
+              progressBar.style.width = '0%';
+              progressLabel.textContent = '업로드 중...';
+
+              let indeterminateTimer = null;
+
+              xhr.upload.onprogress = function(e){
+                if(e.lengthComputable){
+                  const pct = Math.round((e.loaded / e.total) * 100);
+                  progressBar.style.width = pct + '%';
+                  progressLabel.textContent = '업로드: ' + pct + '%';
+                }
+              };
+
+              xhr.onreadystatechange = function(){
+                if(xhr.readyState === 2){
+                  // headers received -> server started processing
+                  progressLabel.textContent = '서버에서 검사 중...';
+                  // animate indeterminate bar
+                  let v = 0;
+                  indeterminateTimer = setInterval(function(){
+                    v = (v + 5) % 100;
+                    progressBar.style.width = (50 + (v/2)) + '%';
+                  }, 300);
+                }
+                if(xhr.readyState === 4){
+                  if(indeterminateTimer) clearInterval(indeterminateTimer);
+                  progressBar.style.width = '100%';
+                  progressLabel.textContent = '완료';
+                  // replace page content with server-rendered HTML
+                  try{
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(xhr.responseText, 'text/html');
+                    const newPage = doc.querySelector('.page');
+                    if(newPage){
+                      document.querySelector('.page').replaceWith(newPage);
+                    } else {
+                      // fallback: reload
+                      window.location.reload();
+                    }
+                  }catch(err){
+                    window.location.reload();
+                  }
+                }
+              };
+
+              xhr.send(fd);
             });
           })();
         </script>
@@ -335,6 +404,7 @@
                 {% endfor %}
                 {% if not had_fail %}
                   <div class="hint">불일치 항목이 없습니다. 모든 검사를 통과했습니다.</div>
+                  <div class="hint" style="margin-top:8px;color:green;font-weight:700;">업로드가 완료되었습니다. 업로드한 분에게 업로드 완료 안내가 전송되었습니다.</div>
                 {% endif %}
               </div>
             </section>
