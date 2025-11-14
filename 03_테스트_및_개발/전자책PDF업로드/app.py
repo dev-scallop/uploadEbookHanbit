@@ -3,6 +3,9 @@ import json
 from io import BytesIO
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from werkzeug.utils import secure_filename
+import smtplib
+from email.message import EmailMessage
+import mimetypes
 
 try:
     from pypdf import PdfReader
@@ -24,6 +27,50 @@ app.config['MAX_CONTENT_LENGTH'] = 200 * 1024 * 1024  # safety ceiling (200MB)
 # 운영 환경에서는 반드시 환경변수로 설정하세요. 기본값은 내부용으로만 사용합니다.
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-change-me')
 ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', '0108')
+
+# SMTP / 이메일 자동발송 설정 (환경변수로 관리)
+SMTP_HOST = os.environ.get('SMTP_HOST')
+SMTP_PORT = int(os.environ.get('SMTP_PORT', '587')) if os.environ.get('SMTP_PORT') else None
+SMTP_USER = os.environ.get('SMTP_USER')
+SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD')
+MAIL_FROM = os.environ.get('MAIL_FROM')
+# 기본 수신자(쉼표로 여러명 가능)
+MAIL_TO = os.environ.get('MAIL_TO')
+# 자동발송 활성화 여부 (env true/1/yes)
+AUTO_SEND_EMAIL = os.environ.get('AUTO_SEND_EMAIL', 'false').lower() in ('1', 'true', 'yes')
+
+
+def send_file_via_smtp(smtp_host, smtp_port, smtp_user, smtp_pass, sender, recipients, subject, body, filename, file_bytes):
+    """Send a file as an email attachment via plain SMTP (STARTTLS).
+    recipients: list of email addresses
+    file_bytes: bytes of the file to attach
+    """
+    msg = EmailMessage()
+    msg['Subject'] = subject
+    msg['From'] = sender
+    msg['To'] = ', '.join(recipients if isinstance(recipients, (list, tuple)) else [recipients])
+    msg.set_content(body)
+
+    ctype, encoding = mimetypes.guess_type(filename)
+    if ctype:
+        maintype, subtype = ctype.split('/', 1)
+    else:
+        maintype, subtype = 'application', 'octet-stream'
+
+    msg.add_attachment(file_bytes, maintype=maintype, subtype=subtype, filename=filename)
+
+    # connect and send
+    with smtplib.SMTP(smtp_host, smtp_port) as s:
+        s.ehlo()
+        try:
+            s.starttls()
+            s.ehlo()
+        except Exception:
+            # some servers may not support STARTTLS
+            pass
+        if smtp_user and smtp_pass:
+            s.login(smtp_user, smtp_pass)
+        s.send_message(msg)
 
 
 def load_rules():
@@ -221,6 +268,8 @@ def handle_file_from_request(req, book_name=None):
         'pagesize': { 'ok': True, 'message': '', 'label': '페이지 크기', 'hint': '첫 페이지 크기가 규격과 일치해야 합니다. 재단/여백 문제를 확인하세요.' },
         'metadata': { 'ok': True, 'message': '', 'label': '메타데이터', 'hint': '제목/저자 등 필수 메타데이터가 있어야 합니다. PDF 편집기로 추가하세요.' },
         'parse': { 'ok': True, 'message': '', 'label': '파싱 상태', 'hint': '파일이 손상되었거나 지원되지 않는 형식일 수 있습니다.' },
+        # 이메일 전송 결과 (자동발송 사용 시 채워집니다)
+        'email': { 'ok': True, 'message': '', 'label': '이메일 발송', 'hint': '업로드 성공 시 자동으로 메일을 보낼 수 있습니다.' },
     }
     if 'file' not in req.files:
         return { 'errors': [ { 'type': 'nofile', 'message': '파일이 업로드되지 않았습니다.' } ] }
@@ -368,8 +417,32 @@ def handle_file_from_request(req, book_name=None):
             with open(save_path, 'wb') as out:
                 out.write(data)
 
-            report = { 'numPages': num_pages, 'widthMm': round(width_mm), 'heightMm': round(height_mm) }
-            return { 'report': report, 'checks': checks }
+                # 자동 이메일 발송 시도 (환경변수로 설정된 경우)
+                email_sent = False
+                email_err = None
+                if AUTO_SEND_EMAIL and SMTP_HOST and MAIL_TO and MAIL_FROM:
+                    recipients = [r.strip() for r in MAIL_TO.split(',') if r.strip()]
+                    try:
+                        send_file_via_smtp(
+                            smtp_host=SMTP_HOST,
+                            smtp_port=SMTP_PORT or 587,
+                            smtp_user=SMTP_USER,
+                            smtp_pass=SMTP_PASSWORD,
+                            sender=MAIL_FROM,
+                            recipients=recipients,
+                            subject=f"업로드된 파일: {filename}",
+                            body=f"사용자가 업로드한 파일 {filename}이(가) 서버에 저장되었습니다.",
+                            filename=filename,
+                            file_bytes=data,
+                        )
+                        email_sent = True
+                        checks['email'].update({ 'ok': True, 'message': '이메일 발송 완료' })
+                    except Exception as ee:
+                        email_err = str(ee)
+                        checks['email'].update({ 'ok': False, 'message': '이메일 발송 실패: ' + email_err })
+
+                report = { 'numPages': num_pages, 'widthMm': round(width_mm), 'heightMm': round(height_mm), 'emailSent': email_sent, 'emailError': email_err }
+                return { 'report': report, 'checks': checks }
 
     except Exception as e:
         checks['parse'].update({ 'ok': False, 'message': 'PDF 파싱 실패: 파일이 손상되었거나 지원되지 않는 형식일 수 있습니다. ' + str(e) })
