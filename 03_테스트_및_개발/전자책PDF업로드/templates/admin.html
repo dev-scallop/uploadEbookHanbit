@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>관리자 - 규격 편집</title>
+    <style>
+      body{font-family:system-ui, sans-serif;max-width:900px;margin:40px auto}
+      textarea{width:100%;height:400px;font-family:monospace}
+    </style>
+  </head>
+  <body>
+    <h1>관리자 - 규격 편집</h1>
+    <p>JSON 형식으로 규격을 편집하고 저장하세요.</p>
+    <form method="post">
+      <textarea name="rules">{{ rules }}</textarea>
+      <div style="margin-top:12px">
+        <button type="submit">저장</button>
+      </div>
+    </form>
+    <p><a href="/">업로드 화면으로 돌아가기</a></p>
+  </body>
+</html>

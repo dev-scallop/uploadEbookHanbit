@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>전자책 PDF 업로드 검사</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --brand: #2563eb;
+        --brand-dark: #1d4ed8;
+        --surface: #ffffff;
+        --muted: #6b7280;
+        --text: #0f172a;
+        --accent-soft: rgba(37, 99, 235, 0.08);
+        --error: #b42318;
+        --error-bg: #fee4e2;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Pretendard", "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(135deg, #f8fafc, #dbeafe 55%, #eff6ff);
+        color: var(--text);
+      }
+
+      .page {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 56px 20px 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .hero {
+        text-align: center;
+      }
+
+      .hero .eyebrow {
+        display: inline-block;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.6);
+        color: var(--brand);
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.18em;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 2.6rem);
+        color: var(--text);
+      }
+
+      .hero .lead {
+        max-width: 640px;
+        margin: 12px auto 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .hero a {
+        color: var(--brand);
+        font-weight: 600;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(37, 99, 235, 0.4);
+      }
+
+      .hero a:hover {
+        border-color: var(--brand);
+      }
+
+      .card {
+        background: var(--surface);
+        border-radius: 24px;
+        padding: clamp(28px, 5vw, 40px);
+        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+        border: 1px solid rgba(15, 23, 42, 0.06);
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .field-label {
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .file-field {
+        border: 1.5px dashed rgba(37, 99, 235, 0.4);
+        border-radius: 18px;
+        padding: 24px;
+        background: rgba(37, 99, 235, 0.08);
+        text-align: center;
+        transition: border-color 0.2s ease, background 0.2s ease;
+      }
+
+      .file-field:hover {
+        border-color: var(--brand);
+        background: rgba(37, 99, 235, 0.12);
+      }
+
+      input[type="file"] {
+        width: 100%;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      input[type="file"]::-webkit-file-upload-button {
+        border: none;
+        border-radius: 999px;
+        background: var(--brand);
+        color: #fff;
+        padding: 10px 18px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .hint {
+        margin: -4px 0 8px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .primary {
+        align-self: flex-start;
+        background: var(--brand);
+        color: #fff;
+        border: none;
+        border-radius: 999px;
+        padding: 14px 28px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .primary:hover {
+        background: var(--brand-dark);
+        transform: translateY(-1px);
+      }
+
+      .primary:focus-visible {
+        outline: 3px solid rgba(37, 99, 235, 0.35);
+        outline-offset: 3px;
+      }
+
+      .report h3,
+      .error-card h3 {
+        margin-top: 0;
+      }
+
+      .report {
+        border: 1px solid rgba(37, 99, 235, 0.3);
+        box-shadow: 0 20px 45px rgba(37, 99, 235, 0.15);
+      }
+
+      .report-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      .stat {
+        border-radius: 16px;
+        padding: 18px;
+        background: var(--accent-soft);
+        text-align: center;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .stat span {
+        display: block;
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+
+      .error-card {
+        border: 1px solid var(--error);
+        background: var(--error-bg);
+        box-shadow: 0 12px 38px rgba(180, 35, 24, 0.25);
+      }
+
+      .error-card h3 {
+        color: var(--error);
+      }
+
+      .error-card ul {
+        margin: 12px 0 0;
+        padding-left: 18px;
+      }
+
+      .error-card li + li {
+        margin-top: 6px;
+      }
+
+      .error-card strong {
+        color: var(--error);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <p class="eyebrow">전자책 품질 점검</p>
+        <h1>PDF 규격 검증 도구</h1>
+        <p class="lead">
+          업로드한 PDF 파일은 서버에서 규격을 자동으로 검사합니다.
+          규격 기준이 변경되면 언제든 <a href="/admin">관리자 페이지</a>에서 업데이트하세요.
+        </p>
+      </header>
+
+      <section class="card upload-card">
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <label class="field-label" for="file-input">검사할 PDF 파일</label>
+          <div class="file-field">
+            <input id="file-input" type="file" name="file" accept="application/pdf" required>
+          </div>
+          <p class="hint">PDF 한 개만 업로드할 수 있으며 서버에서 즉시 삭제됩니다.</p>
+          <button type="submit" class="primary">검사 시작</button>
+        </form>
+      </section>
+
+      {% if report %}
+        <section class="card report">
+          <h3>검사 결과</h3>
+          <div class="report-stats">
+            <div class="stat">
+              <span>페이지 수</span>
+              {{ report.numPages }}
+            </div>
+            <div class="stat">
+              <span>페이지 크기 (첫 페이지)</span>
+              {{ report.widthMm }} × {{ report.heightMm }} mm
+            </div>
+          </div>
+        </section>
+      {% endif %}
+
+      {% if errors %}
+        <section class="card error-card">
+          <h3>오류를 처리해주세요</h3>
+          <ul>
+            {% for er in errors %}
+              <li><strong>{{ er.type }}</strong>: {{ er.message }}</li>
+            {% endfor %}
+          </ul>
+          <p class="hint" style="color: var(--error); margin-top: 14px;">
+            지정된 규격과 맞지 않는 항목을 조정한 뒤 다시 업로드해주세요.
+          </p>
+        </section>
+      {% endif %}
+    </div>
+  </body>
+</html>
