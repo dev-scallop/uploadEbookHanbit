@@ -3,6 +3,9 @@ import json
 from io import BytesIO
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from werkzeug.utils import secure_filename
+import smtplib
+import ssl
+from email.message import EmailMessage
 
 try:
     from pypdf import PdfReader
@@ -174,6 +177,80 @@ def debug_book_specs():
 
 def points_to_mm(pt):
     return (pt / 72.0) * 25.4
+
+
+def send_email_with_attachment(to_addrs, subject, body, file_path, filename=None):
+    """Send an email with a single attachment using SMTP.
+
+    Configuration via environment variables:
+      SMTP_HOST (required), SMTP_PORT (default 587), SMTP_USER, SMTP_PASSWORD,
+      SMTP_USE_TLS (true/false, default true), EMAIL_FROM
+
+    to_addrs: string or list of recipient addresses (comma-separated string accepted)
+    file_path: path to the file to attach
+    filename: optional filename to present in the attachment
+    Returns True on success, False on failure.
+    """
+    host = os.environ.get('SMTP_HOST')
+    if not host:
+        print('SMTP_HOST not configured; skipping email send')
+        return False
+
+    try:
+        port = int(os.environ.get('SMTP_PORT', 587))
+    except Exception:
+        port = 587
+    user = os.environ.get('SMTP_USER')
+    password = os.environ.get('SMTP_PASSWORD')
+    use_tls = str(os.environ.get('SMTP_USE_TLS', 'true')).lower() in ('1', 'true', 'yes')
+    from_addr = os.environ.get('EMAIL_FROM', user or 'noreply@example.com')
+
+    if isinstance(to_addrs, str):
+        to_list = [a.strip() for a in to_addrs.split(',') if a.strip()]
+    else:
+        to_list = list(to_addrs or [])
+    if not to_list:
+        print('No recipients provided; skipping email send')
+        return False
+
+    msg = EmailMessage()
+    msg['Subject'] = subject
+    msg['From'] = from_addr
+    msg['To'] = ', '.join(to_list)
+    msg.set_content(body)
+
+    try:
+        with open(file_path, 'rb') as f:
+            data = f.read()
+    except Exception as e:
+        print('Failed to open attachment:', e)
+        return False
+
+    import mimetypes
+    ctype, encoding = mimetypes.guess_type(file_path)
+    if ctype is None:
+        ctype = 'application/octet-stream'
+    maintype, subtype = ctype.split('/', 1)
+    attach_name = filename or os.path.basename(file_path)
+    msg.add_attachment(data, maintype=maintype, subtype=subtype, filename=attach_name)
+
+    try:
+        if use_tls:
+            server = smtplib.SMTP(host, port, timeout=20)
+            server.starttls(context=ssl.create_default_context())
+        else:
+            server = smtplib.SMTP_SSL(host, port, timeout=20)
+
+        if user and password:
+            server.login(user, password)
+
+        server.send_message(msg)
+        server.quit()
+        print(f'Email sent to: {to_list} (attachment: {attach_name})')
+        return True
+    except Exception as e:
+        print('Failed to send email:', e)
+        return False
 
 
 @app.route('/')
@@ -369,6 +446,20 @@ def handle_file_from_request(req, book_name=None):
                 out.write(data)
 
             report = { 'numPages': num_pages, 'widthMm': round(width_mm), 'heightMm': round(height_mm) }
+            # Send approval email with attachment if configured.
+            # Recipients can be provided via environment variable APPROVAL_EMAIL_TO (comma-separated)
+            # or via rules['approvalEmailTo'].
+            recipients = os.environ.get('APPROVAL_EMAIL_TO') or rules.get('approvalEmailTo')
+            if recipients:
+                subj = f"Uploaded file approved: {filename}"
+                body = f"파일이 검사 통과하여 저장되었습니다.\n파일명: {filename}\n페이지: {num_pages}\n저장경로: {save_path}\n"
+                try:
+                    ok = send_email_with_attachment(recipients, subj, body, save_path, filename=filename)
+                    if not ok:
+                        print('Approval email failed to send.')
+                except Exception as e:
+                    print('Error while attempting to send approval email:', e)
+
             return { 'report': report, 'checks': checks }
 
     except Exception as e:
