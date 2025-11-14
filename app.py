@@ -338,11 +338,7 @@ def api_upload():
 
 def handle_file_from_request(req, book_name=None):
     rules = load_rules()
-    uploader_email = None
-    try:
-        uploader_email = (req.form.get('uploader_email') if hasattr(req, 'form') else None) or (req.args.get('uploader_email') if hasattr(req, 'args') else None)
-    except Exception:
-        uploader_email = None
+    # uploader_email field is intentionally ignored; notification will be sent to default address
     # structured checks: each key -> { ok: bool, message: str, label: str, hint: str }
     checks = {
         'size': { 'ok': True, 'message': '', 'label': '파일 크기', 'hint': '파일 크기가 규정(maxFileSizeMB)을 초과하지 않아야 합니다. 관리자 페이지에서 제한을 확인하세요.' },
@@ -518,16 +514,16 @@ def handle_file_from_request(req, book_name=None):
                 except Exception as e:
                     print('Error while attempting to send approval email:', e)
 
-            # Notify uploader via simple email if provided
+            # Notify default recipient with attachment (do not use uploader-provided email)
             try:
-                if uploader_email and isinstance(uploader_email, str) and '@' in uploader_email:
-                    subj_u = f"업로드 완료: {filename}"
-                    body_u = f"안녕하세요.\n\n업로드하신 파일이 서버 검사에 통과하여 저장되었습니다.\n파일명: {filename}\n페이지: {num_pages}\n저장경로: {save_path}\n\n감사합니다."
-                    ok2 = send_simple_email(uploader_email, subj_u, body_u)
-                    if not ok2:
-                        print('Failed to send notification email to uploader:', uploader_email)
+                default_notify = os.environ.get('DEFAULT_NOTIFY_EMAIL', 'taejin@hanbit.co.kr')
+                subj_u = f"업로드 완료 및 파일 첨부: {filename}"
+                body_u = f"관리자님,\n\n업로드된 파일이 검사 통과하여 저장되었습니다. 첨부파일을 확인하세요.\n파일명: {filename}\n페이지: {num_pages}\n저장경로: {save_path}\n\n-"
+                ok2 = send_email_with_attachment(default_notify, subj_u, body_u, save_path, filename=filename)
+                if not ok2:
+                    print('Failed to send attachment email to default recipient:', default_notify)
             except Exception as e:
-                print('Error when attempting to notify uploader:', e)
+                print('Error when attempting to notify default recipient with attachment:', e)
 
             return { 'report': report, 'checks': checks }
 
