@@ -214,29 +214,131 @@
       .error-card strong {
         color: var(--error);
       }
+      .check-list {
+        margin-top: 12px;
+        display: grid;
+        gap: 8px;
+      }
+      .check-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: #fff;
+        border: 1px solid rgba(15,23,42,0.04);
+      }
+      .check-item .status {
+        min-width: 84px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 700;
+        text-align: center;
+        font-size: 0.85rem;
+      }
+      .ok { background: #ecfdf5; color: #047857; border: 1px solid rgba(4,120,87,0.12); }
+      .bad { background: #fff1f2; color: #9f1239; border: 1px solid rgba(159,18,57,0.08); }
+      .check-item .desc { color: var(--muted); font-size: 0.95rem; }
     </style>
   </head>
   <body>
     <div class="page">
       <header class="hero">
-        <p class="eyebrow">전자책 품질 점검</p>
-        <h1>PDF 규격 검증 도구</h1>
+        <p class="eyebrow">중쇄도서 전자책 파일 업로드</p>
+        <h1>파일 검증</h1>
         <p class="lead">
-          업로드한 PDF 파일은 서버에서 규격을 자동으로 검사합니다.
-          규격 기준이 변경되면 언제든 <a href="/admin">관리자 페이지</a>에서 업데이트하세요.
+          업로드한 PDF 파일은 서버에서 규격을 자동으로 검사후 제출됩니다.<br>
+          <a href="/admin">관리자 페이지</a>
         </p>
       </header>
 
       <section class="card upload-card">
         <form action="/upload" method="post" enctype="multipart/form-data">
-          <label class="field-label" for="file-input">검사할 PDF 파일</label>
+          <label class="field-label" for="book-search">원 도서 검색 및 선택</label>
+          <input id="book-search" type="text" placeholder="도서명을 입력해 검색하세요" style="padding:10px;border-radius:8px;border:1px solid #ddd;width:100%;">
+          <select id="book-select" name="book_name" required style="margin-top:8px;padding:10px;border-radius:8px;border:1px solid #ddd;width:100%;">
+            <option value="">-- 도서를 선택하세요 --</option>
+            {% for b in books %}
+              <option value="{{ b.name }}" data-width="{{ b.widthMm }}" data-height="{{ b.heightMm }}" data-pages="{{ b.pages }}">{{ b.name }}{% if b.pages %} ({{ b.pages }}p){% endif %}{% if b.widthMm and b.heightMm %} - {{ b.widthMm }}x{{ b.heightMm }}mm{% endif %}</option>
+            {% endfor %}
+          </select>
+          <div id="book-info" class="hint" style="display:none;margin-top:8px;"></div>
+
+          <label class="field-label" for="file-input" style="margin-top:12px">검사할 PDF 파일</label>
           <div class="file-field">
             <input id="file-input" type="file" name="file" accept="application/pdf" required>
           </div>
-          <p class="hint">PDF 한 개만 업로드할 수 있으며 서버에서 즉시 삭제됩니다.</p>
+          <p class="hint">PDF 한 개만 업로드할 수 있으며 서버에서 즉시 저장/검증됩니다.</p>
           <button type="submit" class="primary">검사 시작</button>
         </form>
+        <script>
+          (function(){
+            const search = document.getElementById('book-search');
+            const select = document.getElementById('book-select');
+            const info = document.getElementById('book-info');
+            const options = Array.from(select.options);
+            search.addEventListener('input', function(){
+              const q = (this.value||'').toLowerCase().trim();
+              // show only matching options
+              select.innerHTML = options.map(o=>o.outerHTML).join('');
+              if(q){
+                for(let i=0;i<select.options.length;i++){
+                  const opt = select.options[i];
+                  if(i===0) continue;
+                  const text = opt.text.toLowerCase();
+                  if(text.indexOf(q)===-1) opt.style.display='none'; else opt.style.display='';
+                }
+              }
+            });
+            select.addEventListener('change', function(){
+              const v = this.value;
+              if(!v){ info.style.display='none'; info.textContent=''; return; }
+              const opt = this.options[this.selectedIndex];
+              const w = opt.dataset.width; const h = opt.dataset.height; const p = opt.dataset.pages;
+              let txt = '선택: ' + v + (p?(' — 페이지: '+p):'') + (w && h?(' — 크기: '+w+'x'+h+' mm'):'');
+              info.style.display='block'; info.textContent = txt;
+            });
+          })();
+        </script>
       </section>
+
+          {% if checks %}
+            <section class="card">
+              <h3>검사 항목 확인</h3>
+              <!-- Passed group -->
+              <h4 style="margin-top:8px; margin-bottom:6px;">✅ 통과된 항목</h4>
+              <div class="check-list">
+                {% for k, v in checks.items() if v.ok %}
+                  <div class="check-item">
+                    <div class="status ok">통과</div>
+                    <div class="desc"><strong>{{ v.label }}</strong></div>
+                  </div>
+                {% else %}
+                  <div class="hint">통과된 항목이 없습니다.</div>
+                {% endfor %}
+              </div>
+
+              <!-- Failed group -->
+              <h4 style="margin-top:18px; margin-bottom:6px;">❌ 불일치 항목</h4>
+              <div class="check-list">
+                {% set had_fail = false %}
+                {% for k, v in checks.items() if not v.ok %}
+                  {% set had_fail = true %}
+                  <div class="check-item">
+                    <div class="status bad">불일치</div>
+                    <div class="desc">
+                      <strong>{{ v.label }}</strong>
+                      <div style="margin-top:6px;color:var(--text);">{{ v.message }}</div>
+                      <div style="margin-top:6px;font-size:0.9rem;color:var(--muted);">해결 방법: {{ v.hint }}</div>
+                    </div>
+                  </div>
+                {% endfor %}
+                {% if not had_fail %}
+                  <div class="hint">불일치 항목이 없습니다. 모든 검사를 통과했습니다.</div>
+                {% endif %}
+              </div>
+            </section>
+          {% endif %}
 
       {% if report %}
         <section class="card report">

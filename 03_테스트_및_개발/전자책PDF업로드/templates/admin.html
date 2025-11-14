@@ -11,13 +11,28 @@
   </head>
   <body>
     <h1>관리자 - 규격 편집</h1>
-    <p>JSON 형식으로 규격을 편집하고 저장하세요.</p>
-    <form method="post">
-      <textarea name="rules">{{ rules }}</textarea>
-      <div style="margin-top:12px">
-        <button type="submit">저장</button>
-      </div>
-    </form>
+    {% if not authenticated %}
+      <p>관리자 비밀번호를 입력해야 규격을 편집할 수 있습니다.</p>
+      {% if error %}
+        <div style="color:#a33">{{ error }}</div>
+      {% endif %}
+      <form method="post">
+        <div>
+          <input type="password" name="password" placeholder="관리자 비밀번호">
+        </div>
+        <div style="margin-top:12px">
+          <button type="submit">로그인</button>
+        </div>
+      </form>
+    {% else %}
+      <p>JSON 형식으로 규격을 편집하고 저장하세요.</p>
+      <form method="post">
+        <textarea name="rules">{{ rules }}</textarea>
+        <div style="margin-top:12px">
+          <button type="submit">저장</button>
+        </div>
+      </form>
+    {% endif %}
     <p><a href="/">업로드 화면으로 돌아가기</a></p>
   </body>
 </html>
