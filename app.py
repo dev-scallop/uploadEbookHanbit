@@ -253,6 +253,54 @@ def send_email_with_attachment(to_addrs, subject, body, file_path, filename=None
         return False
 
 
+def send_simple_email(to_addrs, subject, body):
+    """Send a simple plain-text email without attachments."""
+    host = os.environ.get('SMTP_HOST')
+    if not host:
+        print('SMTP_HOST not configured; skipping simple email send')
+        return False
+    try:
+        port = int(os.environ.get('SMTP_PORT', 587))
+    except Exception:
+        port = 587
+    user = os.environ.get('SMTP_USER')
+    password = os.environ.get('SMTP_PASSWORD')
+    use_tls = str(os.environ.get('SMTP_USE_TLS', 'true')).lower() in ('1', 'true', 'yes')
+    from_addr = os.environ.get('EMAIL_FROM', user or 'noreply@example.com')
+
+    if isinstance(to_addrs, str):
+        to_list = [a.strip() for a in to_addrs.split(',') if a.strip()]
+    else:
+        to_list = list(to_addrs or [])
+    if not to_list:
+        print('No recipients provided; skipping simple email send')
+        return False
+
+    msg = EmailMessage()
+    msg['Subject'] = subject
+    msg['From'] = from_addr
+    msg['To'] = ', '.join(to_list)
+    msg.set_content(body)
+
+    try:
+        if use_tls:
+            server = smtplib.SMTP(host, port, timeout=20)
+            server.starttls(context=ssl.create_default_context())
+        else:
+            server = smtplib.SMTP_SSL(host, port, timeout=20)
+
+        if user and password:
+            server.login(user, password)
+
+        server.send_message(msg)
+        server.quit()
+        print(f'Simple email sent to: {to_list}')
+        return True
+    except Exception as e:
+        print('Failed to send simple email:', e)
+        return False
+
+
 @app.route('/')
 def index():
     rules = load_rules()
@@ -290,6 +338,11 @@ def api_upload():
 
 def handle_file_from_request(req, book_name=None):
     rules = load_rules()
+    uploader_email = None
+    try:
+        uploader_email = (req.form.get('uploader_email') if hasattr(req, 'form') else None) or (req.args.get('uploader_email') if hasattr(req, 'args') else None)
+    except Exception:
+        uploader_email = None
     # structured checks: each key -> { ok: bool, message: str, label: str, hint: str }
     checks = {
         'size': { 'ok': True, 'message': '', 'label': '파일 크기', 'hint': '파일 크기가 규정(maxFileSizeMB)을 초과하지 않아야 합니다. 관리자 페이지에서 제한을 확인하세요.' },
@@ -464,6 +517,17 @@ def handle_file_from_request(req, book_name=None):
                         print('Approval email failed to send.')
                 except Exception as e:
                     print('Error while attempting to send approval email:', e)
+
+            # Notify uploader via simple email if provided
+            try:
+                if uploader_email and isinstance(uploader_email, str) and '@' in uploader_email:
+                    subj_u = f"업로드 완료: {filename}"
+                    body_u = f"안녕하세요.\n\n업로드하신 파일이 서버 검사에 통과하여 저장되었습니다.\n파일명: {filename}\n페이지: {num_pages}\n저장경로: {save_path}\n\n감사합니다."
+                    ok2 = send_simple_email(uploader_email, subj_u, body_u)
+                    if not ok2:
+                        print('Failed to send notification email to uploader:', uploader_email)
+            except Exception as e:
+                print('Error when attempting to notify uploader:', e)
 
             return { 'report': report, 'checks': checks }
 
