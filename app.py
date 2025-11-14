@@ -352,9 +352,9 @@ def handle_file_from_request(req, book_name=None):
         book_specs = load_book_specs()
         book_spec = book_specs.get(book_name) if book_name else None
         if book_spec and book_spec.get('pages'):
-            # Treat the expected pages from book_spec as (value + 1) to match measured convention
+            # Treat the expected pages from book_spec as (value + 2) to match measured convention
             try:
-                expected_pages = int(book_spec.get('pages')) + 1
+                expected_pages = int(book_spec.get('pages')) + 2
             except Exception:
                 expected_pages = int(book_spec.get('pages'))
             if num_pages != expected_pages:
