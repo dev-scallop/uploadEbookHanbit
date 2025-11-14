@@ -1,0 +1,17 @@
+# Local ignores for this app
+node_modules/
+.next/
+.vercel/
+.env*
+.DS_Store
+npm-debug.log*
+yarn-error.log*
+
+# Python / uploads
+__pycache__/
+*.py[cod]
+venv/
+uploads/
+public/book_specs.xls
+public/book_specs.xlsx
+*.log
